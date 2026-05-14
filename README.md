@@ -1,0 +1,19 @@
+# Data Analytics Portfolio
+
+A collection of data analytics projects covering business intelligence, exploratory analysis, and operational reporting.
+
+## Projects
+
+| # | Project | Tools | Status |
+|---|---------|-------|--------|
+| 01 | [NEM Emissions & Bidding Analysis](./01-nem-emissions-bidding/) | Python, Pandas, Matplotlib | In progress |
+| 02 | [Australian Population & Migration Trends](./02-aus-population-migration/) | Power BI, ABS Data | In progress |
+| 03 | [NSW Opal Card Tap-On/Tap-Off Analysis](./03-nsw-opal-card/) | PostgreSQL, Tableau, SQL | Complete |
+| 04 | [Customer Retention & Revenue Analysis](https://public.tableau.com/shared/J3324MZT9) | Tableau | Complete |
+| 05 | [COVID-19 Impact on Digital Learning](./05-covid-digital-learning/) | R, ggplot2 | In progress |
+
+## About
+
+Business Analytics graduate from Macquarie University. This portfolio demonstrates work across exploratory analysis, dashboard development, and operational reporting using real and synthetic datasets.
+
+**Contact:** vivekchinmay@gmail.com | [LinkedIn](https://www.linkedin.com/in/vivek-dhanwada/) | [Portfolio](https://vivekdhanwada.github.io)
