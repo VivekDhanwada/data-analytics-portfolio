@@ -1,43 +1,69 @@
-# Australian National Electricity Market — Emissions & Bidding Analysis
+# NEM Emissions & Bidding Analysis
 
-Analysis of 6 years of 5-minute interval emissions and generator bidding data across all NEM regions, identifying carbon intensity trends and shifts in fossil fuel generator behaviour between 2019 and 2025.
+Analysis of Australian National Electricity Market (NEM) emissions intensity and generator bidding behaviour using Python, covering 5-minute interval dispatch and emissions data across NEM regions.
 
 ## Overview
 
-This project analyses Australian National Electricity Market (NEM) data sourced via the CSIRO API, covering emissions intensity and generator bidding behaviour across all NEM regions. The analysis was completed as a Macquarie University capstone project and awarded a Distinction.
+This project analyses emissions intensity and fossil fuel generator bidding behaviour in the Australian National Electricity Market. The analysis compares 2019 and 2025 data to identify how carbon intensity changed across regions and how fossil fuel generator bidding behaviour shifted over time.
 
-The dataset covers 1.6M+ rows of 5-minute interval data across 2019 and 2025 dispatch periods.
+The project was completed as part of a Macquarie University capstone project and awarded a Distinction.
+
+The dataset covers 1.6M+ rows of 5-minute interval dispatch and emissions data.
 
 ## Analytical Questions
 
-1. How has carbon intensity changed across NEM regions between 2019 and 2025?
-2. How has fossil fuel generator bidding behaviour shifted over this period?
-3. What are the intra-daily and regional patterns in emissions intensity?
+1. How did carbon intensity change across NEM regions between 2019 and 2025?
+2. How did fossil fuel generator bidding behaviour shift over the same period?
+3. What regional and intra-daily emissions patterns were visible in the data?
 
 ## Key Findings
 
-- NSW achieved a 21.7% reduction in carbon intensity between 2019 and 2025, compared to a national average decline of only 7.7%.
-- Fossil generators shifted from baseload providers to strategic peak-pricers over the same period, with the fossil bid price interquartile range widening from $85/MWh to $210/MWh.
-- Regional time series and intra-daily trend charts reveal significant variation in emissions profiles across states.
-- Analysis delivered investment recommendations in a structured client report format.
+**NSW showed the strongest carbon intensity improvement**  
+NSW achieved a 21.7% reduction in carbon intensity between 2019 and 2025, compared with a national average decline of 7.7%.
+
+**Fossil generator bidding became more volatile**  
+Fossil generators shifted from baseload providers toward more strategic peak-pricing behaviour. The fossil bid price interquartile range widened from $85/MWh to $210/MWh.
+
+**Regional emissions patterns varied significantly**  
+Time series and intra-daily trend charts showed clear differences in emissions profiles across NEM regions, highlighting the importance of region-level analysis.
 
 ## Tools & Techniques
 
-- Python (Pandas, Matplotlib, Seaborn)
-- CSIRO API for data extraction
-- 5-minute interval dispatch data across all NEM regions
-- Data cleaning, aggregation, and time series visualisation
+- Python
+- pandas
+- Matplotlib
+- API-based data extraction
+- 5-minute interval dispatch data
+- Data cleaning and aggregation
+- Time series analysis
+- Regional comparison
+- Analytical reporting
 
 ## Files
 
-- `cleandata.py` — Data extraction, cleaning, and preparation
-- `plot1.py` to `plot5.py` — Individual visualisation scripts for each chart
-- `Report.pdf` — Group client report with full findings and recommendations
+- `cleandata.py` - Data extraction, cleaning, and preparation
+- `plot1.py` to `plot5.py` - Individual visualisation scripts for project charts
+- `Report.pdf` - Group client report with full findings and recommendations
 
-## Notes
+## Skills Demonstrated
 
-This was a group capstone project. The Python code and data cleaning in this repository reflects individual contribution. The report represents collaborative group work across all tasks.
+- Python data cleaning and preparation
+- API-based data extraction
+- Time series analysis using 5-minute interval dispatch data
+- Data aggregation and regional comparison
+- Matplotlib visualisation and analytical reporting
+- Translating technical findings into client-style recommendations
+
+## Contribution Note
+
+This was a group capstone project. My individual contribution focused on Python code development, data cleaning, and Task 4 analysis. The final report represents collaborative group work.
 
 ## Data Source
 
-CSIRO NEM emissions API — 5-minute interval dispatch and emissions data across all NEM regions, 2019 and 2025.
+Australian National Electricity Market emissions and dispatch data accessed through the CSIRO NEM emissions data source.
+
+## Limitations
+
+- The project compares selected 2019 and 2025 dispatch periods, so findings should be interpreted within the scope of the available data.
+- The final report was produced collaboratively, so individual contribution is stated separately above.
+- The analysis is descriptive and does not claim causal attribution for market behaviour changes.
