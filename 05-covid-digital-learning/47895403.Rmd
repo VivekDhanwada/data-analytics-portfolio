@@ -1,0 +1,660 @@
+---
+title: "Assesssment 1 - COVID-19 impact on digital learning"
+author: "Vivek Chinmay Dhanwada | 47895403"
+date: "2024-03-17"
+output:
+  pdf_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r Installing Packages, warning=FALSE, include=FALSE}
+r = getOption("repos")
+r["CRAN"] = "http://cran.us.r-project.org"
+options(repos = r)
+install.packages(c("zoo","tidyverse","rmarkdown","dplyr","lubridate"))
+library(rmarkdown)
+library(zoo)
+library(tidyverse)
+library(dplyr)
+library(lubridate)
+library(webshot)
+```
+```{r Installing Packages 1, warning=FALSE, include=FALSE}
+webshot::install_phantomjs()
+```
+
+## 1. Data Cleaning and Wrangling  
+**Describe and show the data cleaning, transformation and wrangling process' that you have completed. Ensure you provide justification of any data handling and transformation you have completed.**
+
+
+<br>
+<br>
+
+The first step is to read in and clean the districts information data. A comprehensive analysis was done to identify any missing values and clean the dataset. 
+
+```{r Import CSV Files, include=FALSE}
+
+#load master of product data into R
+product_data = read.csv(file="/Users/vivekchinmaydhanwada/Downloads/products_info.csv")
+product_data
+
+#load master of district data into R
+district_data=read.csv(file="/Users/vivekchinmaydhanwada/Downloads/districts_info.csv")
+district_data
+
+#load districts data into R
+district_1000=read.csv(file="/Users/vivekchinmaydhanwada/Downloads/1000.csv")
+district_1039=read.csv(file="/Users/vivekchinmaydhanwada/Downloads/1039.csv")
+district_1044=read.csv(file="/Users/vivekchinmaydhanwada/Downloads/1044.csv")
+district_1052=read.csv(file="/Users/vivekchinmaydhanwada/Downloads/1052.csv")
+district_1131=read.csv(file="/Users/vivekchinmaydhanwada/Downloads/1131.csv")
+```
+
+```{r echo=TRUE}
+# Checking for missing values in the districts data
+anyNA(district_data)
+
+sum(is.na(district_data))
+
+colSums(is.na(district_data))
+```
+
+```{r echo=TRUE}
+# Removing duplicate rows
+district_data <- district_data %>% distinct()
+```
+
+```{r include=FALSE}
+#Checking for inconsistent values in the dataset
+unique(district_data$state)
+unique(district_data$locale)
+unique(district_data$pct_black.hispanic)
+unique(district_data$pct_free.reduced)
+unique(district_data$county_connections_ratio)
+unique(district_data$pp_total_raw)
+```
+- We could see some inconsistencies in the dataset.
+- I have done the following to rectify these errors:
+
+```{r echo=TRUE}
+district_data <- district_data %>%
+  mutate(state = case_when(
+    state == "Utaah" ~ "Utah",
+    state == "UTAH" ~ "Utah",
+    state == "uTthah" ~ "Utah",
+    state == "New Y0rk" ~ "New York",
+    state == "NY City" ~ "New York",
+    state == "Califronia" ~ "California",
+    state == "ConnectiCUT" ~ "Connecticut",
+    TRUE ~ state
+  ))
+district_data <- district_data %>%
+mutate(locale = case_when(
+    locale == "Sub" ~ "Suburb",
+    locale == "Cit" ~ "City",
+    locale == "C1ty" ~ "City",
+    TRUE ~ locale
+))
+```
+```{r include=FALSE}
+#Removing NaN values
+districts_data <- district_data %>%
+  filter(!state %in% c('NaN') & !locale %in% c('NaN'))
+```
+
+I have done the same cleaning process with the products info dataset as well
+```{r include=FALSE}
+colnames(product_data)<- c("lp_id","url","product_name","company","sector","pef") 
+
+product_data$lp_id=
+  as.character(product_data$lp_id)
+
+# Create a new empty column
+product_data$pef_cat <- "Unknown"
+product_data$pef_subcat <- "Unknown"
+
+# Split and populate the new column
+for (i in 1:nrow(product_data)) {
+  split_result <- unlist(strsplit(product_data$pef[i], " - ", fixed = TRUE))
+  if (length(split_result) >= 1) {
+    product_data$pef_cat[i] <- split_result[1]
+  } else {
+    product_data$pef_cat[i] <- "Unknown"
+  }
+  if (length(split_result) >= 2) {
+    product_data$pef_subcat[i] <- paste(split_result[2:length(split_result)], collapse = " - ")
+  } else {
+    product_data$pef_subcat[i] <- "Unknown"
+  }
+}
+```
+
+```{r echo=TRUE}
+anyNA(product_data)
+sum(is.na(product_data))
+colSums(is.na(product_data))
+```
+```{r eval=FALSE}
+# Removing duplicate rows
+product_data <- product_data %>% distinct()
+```
+
+```{r echo=TRUE}
+unique(product_data$LP.ID)
+unique(product_data$URL)
+unique(product_data$Product.Name)
+unique(product_data$Provider.Company.Name)
+unique(product_data$Sector.s.)
+unique(product_data$Primary.Essential.Function)
+```
+- We could see some inconsistencies in the dataset.
+- I have done the following to rectify these errors:
+```{r}
+product_data=product_data %>%
+  mutate(company = replace(company,company == "Adobe Inc","Adobe Inc.")) %>%
+  mutate(sector = replace(sector,sector == "PreK-112","PreK-12")) %>%
+  mutate(sector = replace(sector,sector == "PPreK-12","PreK-12")) %>%
+  mutate(sector = replace(sector,sector == "PreK-122","PreK-12")) %>%
+  mutate(sector = replace(sector,sector == "PreK-12; Higher; Corporate","PreK-12; Higher Ed; Corporate"))
+```
+
+The next step is to clean the engagaement data to whatever extent possible, keeping in mind the limitations mentioned in the ReadMe file.
+```{r adding district_id, echo=TRUE, include=FALSE}
+district_1000$district_id <- 1000
+district_1039$district_id <- 1039
+district_1044$district_id <- 1044
+district_1052$district_id <- 1052
+district_1131$district_id <- 1131
+
+#Handling the duplicate values
+product_data <- product_data %>%
+  filter(!lp_id %in% c(53399, 45716, 26248, 87841, 87762, 33562, 35098, 69610))
+```
+
+There were significant inconsistencies in the engagement data, specifically in the date columns which had to be rectified.
+
+```{r checking the year, echo=TRUE}
+
+# Extracting the year and changing it's format to numeric
+district_1000$year <- as.numeric(str_sub(district_1000$time,-4))
+unique(district_1000$year)
+district_1039$year <- as.numeric(str_sub(district_1039$time,-4))
+unique(district_1039$year)
+district_1044$year <- as.numeric(str_sub(district_1044$time,-4))
+unique(district_1044$year)
+district_1052$year <- as.numeric(str_sub(district_1052$time,-4))
+unique(district_1052$year)
+district_1131$year <- as.numeric(str_sub(district_1131$time,-4))
+unique(district_1131$year)
+
+#extract the month and convert to numeric format
+district_1000$month <- as.character(str_sub(district_1000$time,-7,-6))
+district_1039$month <- as.character(str_sub(district_1039$time,-7,-6))
+district_1044$month <- as.character(str_sub(district_1044$time,-7,-6))
+district_1052$month <- as.character(str_sub(district_1052$time,-7,-6))
+district_1131$month <- as.character(str_sub(district_1131$time,-7,-6))
+```
+
+This discrepancy led to the conclusion that the data points were probably entered incorrectly. In order to guarantee data consistency and conformity to the designated data year, I decided to standardize all of these data points to the year 2020 in order to address this problem.
+
+```{r changing the year, include=FALSE}
+d1000_clean = district_1000 %>%
+  mutate(year = replace(year,year == "2022","2020")) %>%
+  mutate(year = replace(year,year == "1020","2020")) %>%
+  mutate(time = replace(time,time == "1/01/2022","1/01/2020")) %>%
+  mutate(time = replace(time,time == "31/12/1020","31/12/2020"))
+
+d1039_clean=district_1039 %>%
+  mutate(year = replace(year,year == "2044","2020")) %>%
+  mutate(time = replace(time,time == "1/01/2044","1/01/2020"))
+
+d1044_clean=district_1044 %>%
+  mutate(year = replace(year,year == "2050","2020")) %>%
+  mutate(time = replace(time,time == "1/01/2050","1/01/2020"))
+
+d1052_clean=district_1052 %>%
+  mutate(year = replace(year,year == "2033","2020")) %>%
+  mutate(time = replace(time,time == "1/01/2033","1/01/2020"))
+
+d1131_clean=district_1131 %>%
+  mutate(year = replace(year,year == "2050","2020")) %>%
+  mutate(time = replace(time,time == "2/01/2050","2/01/2020"))
+```
+
+```{r}
+#change the date type
+district_1000_2 <- d1000_clean %>%
+ mutate(time = as.Date(time, "%d/%m/%y"))
+ str(district_1000_2)
+district_1039_2 <- district_1039 %>%
+ mutate(time = as.Date(time, "%d/%m/%y"))
+ str(district_1039_2)
+district_1044_2 <- district_1044 %>%
+ mutate(time = as.Date(time, "%d/%m/%y"))
+ str(district_1044_2)
+district_1052_2 <- district_1052 %>%
+ mutate(time = as.Date(time, "%d/%m/%y"))
+ str(district_1052_2)
+district_1131_2 <- district_1131 %>%
+ mutate(time = as.Date(time, "%d/%m/%y"))
+ str(district_1131_2)
+
+# extract the year and convert to numeric format
+district_1000_2$year <- as.numeric(format(district_1000_2$time, "%Y"))
+unique(district_1000_2$year)
+district_1039_2$year <- as.numeric(format(district_1039_2$time, "%Y"))
+unique(district_1039_2$year)
+district_1044_2$year <- as.numeric(format(district_1044_2$time, "%Y"))
+unique(district_1044_2$year)
+district_1052_2$year <- as.numeric(format(district_1052_2$time, "%Y"))
+unique(district_1052_2$year)
+district_1131_2$year <- as.numeric(format(district_1131_2$time, "%Y"))
+unique(district_1131_2$year)
+
+district_1000_2 <- district_1000 %>%
+  filter(year != 2010)
+```
+The product information data set contains some duplicates, as was previously indicated. Therefore, in order to improve the analysis's correctness, the lp_id in each district file needs to be replaced.
+
+```{r include=FALSE, echo=TRUE}
+d1000_clean=district_1000 %>%
+  mutate(lp_id = replace(lp_id,lp_id == "53399","97209")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "45716","47267")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "26248","85975")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "87841","35971")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "87762","51340")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "33562","75206")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "35098","61292")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "69610","33326"))
+# district_1000_clean
+
+d1039_clean=district_1039 %>%
+  mutate(lp_id = replace(lp_id,lp_id == "53399","97209")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "45716","47267")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "26248","85975")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "87841","35971")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "87762","51340")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "33562","75206")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "35098","61292")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "69610","33326"))
+
+d1044_clean=district_1044 %>%
+  mutate(lp_id = replace(lp_id,lp_id == "53399","97209")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "45716","47267")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "26248","85975")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "87841","35971")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "87762","51340")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "33562","75206")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "35098","61292")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "69610","33326"))
+
+d1052_clean=district_1052 %>%
+  mutate(lp_id = replace(lp_id,lp_id == "53399","97209")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "45716","47267")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "26248","85975")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "87841","35971")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "87762","51340")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "33562","75206")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "35098","61292")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "69610","33326"))
+
+d1131_clean=district_1131 %>%
+  mutate(lp_id = replace(lp_id,lp_id == "53399","97209")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "45716","47267")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "26248","85975")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "87841","35971")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "87762","51340")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "33562","75206")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "35098","61292")) %>%
+  mutate(lp_id = replace(lp_id,lp_id == "69610","33326"))
+```
+-The goal of removing NA values from each district's file is to make the dataset more streamlined by removing unnecessary rows. To determine whether the associated 'engagement_index' is also NA when the 'pct_access' column includes NA, a manual analysis was carried out. When the values in both columns are zero, the data is considered unnecessary and should be removed. This proactive approach to data management guarantees the relevance and utility of the dataset while also improving memory and space efficiency.
+
+```{r echo=TRUE, , include=TRUE}
+#Removing any missing values from district 1000
+anyNA(d1000_clean)
+sum(is.na(d1000_clean)) 
+colSums(is.na(d1000_clean)) 
+
+d1000_Final <- na.omit(d1000_clean)
+
+#Removing any missing values from district 1039
+anyNA(d1039_clean)
+sum(is.na(d1039_clean))
+colSums(is.na(d1039_clean))
+
+d1039_Final <- na.omit(d1039_clean)
+
+
+#Removing any missing values from district 1044
+anyNA(d1044_clean)
+sum(is.na(d1044_clean))
+colSums(is.na(d1044_clean)) 
+
+d1044_Final <- na.omit(d1044_clean)
+
+
+#Removing any missing values from district 1052
+anyNA(d1052_clean)
+sum(is.na(d1052_clean))
+colSums(is.na(d1052_clean)) 
+
+d1052_Final <- na.omit(d1052_clean)
+
+
+#Removing any missing values from district 1131
+anyNA(d1131_clean)
+sum(is.na(d1131_clean)) 
+colSums(is.na(d1131_clean))
+
+d1131_Final <- na.omit(d1131_clean)
+```
+
+```{r include=FALSE, echo=TRUE}
+#Converting pct_access to numeric to bind the rows, which is the next step
+d1000_Final$pct_access <- as.numeric(d1000_Final$pct_access)
+d1039_Final$pct_access <- as.numeric(d1039_Final$pct_access)
+d1044_Final$pct_access <- as.numeric(d1044_Final$pct_access)
+d1052_Final$pct_access <- as.numeric(d1052_Final$pct_access)
+d1131_Final$pct_access <- as.numeric(d1131_Final$pct_access)
+
+clean_and_convert_to_numeric <- function(column) {
+  as.numeric(gsub("%", "", column))
+}
+
+# Apply this function to the pct_access column in each dataframe
+d1000_Final$pct_access <- clean_and_convert_to_numeric(d1000_Final$pct_access)
+d1039_Final$pct_access <- clean_and_convert_to_numeric(d1039_Final$pct_access)
+d1044_Final$pct_access <- clean_and_convert_to_numeric(d1044_Final$pct_access)
+d1052_Final$pct_access <- clean_and_convert_to_numeric(d1052_Final$pct_access)
+d1131_Final$pct_access <- clean_and_convert_to_numeric(d1131_Final$pct_access)
+
+#Converting engagement_)index to numeric
+d1000_Final$engagement_index <- as.numeric(d1000_Final$engagement_index)
+d1039_Final$engagement_index <- as.numeric(d1039_Final$engagement_index)
+d1044_Final$engagement_index <- as.numeric(d1044_Final$engagement_index)
+d1052_Final$engagement_index <- as.numeric(d1052_Final$engagement_index)
+d1131_Final$engagement_index <- as.numeric(d1131_Final$engagement_index)
+```
+
+- The next step is to combine all of the 5 district engagement datasets to create 1 main dataset, which makes it easier for data analysis.
+```{r}
+# Combining the engagement datasets into one dataframe
+district_final <- bind_rows(d1000_Final, d1039_Final, d1044_Final, d1052_Final, d1131_Final)
+district_final2 <- bind_rows(d1000_Final, d1039_Final, d1044_Final, d1052_Final, d1131_Final)
+district_final4 <- bind_rows(d1000_Final, d1039_Final, d1044_Final, d1052_Final, d1131_Final)
+```
+
+```{r include=FALSE}
+# Convert the 'time' column in the district_final dataframe to a Date type
+district_final4 <- district_final4 %>%
+ mutate(time = as.Date(time, "%d/%m/%y"))
+district_final4$district_id=
+  as.character(district_final4$district_id)
+district_final4$lp_id=
+  as.character(district_final4$lp_id)
+```
+```{r Top 372 Product Analysis 1, warning=FALSE}
+# Convert `lp_id` to character in both data frames
+district_final4$lp_id <- as.character(district_final4$lp_id)
+product_data$lp_id <- as.character(product_data$lp_id)
+```
+
+```{r include=FALSE}
+# Convert the 'time' column in the district_final dataframe to a Date type
+district_final2 <- district_final2 %>%
+ mutate(time = as.Date(time, "%d/%m/%y"))
+district_final2$district_id=
+  as.character(district_final2$district_id)
+district_final2$lp_id=
+  as.character(district_final2$lp_id)
+```
+```{r Top 372 Product Analysis 2, warning=FALSE}
+# Convert `lp_id` to character in both data frames
+district_final2$lp_id <- as.character(district_final2$lp_id)
+product_data$lp_id <- as.character(product_data$lp_id)
+```
+
+```{r message=FALSE, warning=FALSE}
+# Convert the 'time' column in the district_final dataframe to a Date type
+district_final <- district_final %>%
+ mutate(time = as.Date(time, "%d/%m/%y"))
+district_final$district_id=
+  as.character(district_final$district_id)
+district_final$lp_id=
+  as.character(district_final$lp_id)
+```
+```{r Top 372 Product Analysis 3, warning=FALSE}
+# Convert `lp_id` to character in both data frames
+district_final$lp_id <- as.character(district_final$lp_id)
+product_data$lp_id <- as.character(product_data$lp_id)
+
+# Combining district combination in the context of the district and product info
+top372 <- left_join(district_final,product_data, by = c("lp_id" = "lp_id"))
+top372 <- top372 %>%
+  select(-time) %>%
+  mutate_all(~ ifelse(. == "", "Unknown", .)) %>%
+  mutate_all(~ ifelse(is.na(.), "Unknown", .))
+
+top372 <- top372 %>%
+  mutate(engagement_index = as.numeric(engagement_index))
+
+product_rank_1 <- top372 %>%
+  group_by(lp_id) %>%
+  summarise(sum_engagement = sum(engagement_index, na.rm = TRUE), .groups = "drop")
+
+
+product_rank_2 <- product_rank_1 %>%
+  arrange(desc(sum_engagement)) %>%
+  mutate(rank = row_number(desc(sum_engagement)))
+
+product_rank_3 <- left_join(top372, product_rank_2 %>% select(lp_id, rank), by = "lp_id")
+
+top_10_product <- product_rank_3 %>%
+  filter(rank <= 10) %>%
+  group_by(product_name,lp_id, month, .groups = "drop") %>%
+  summarize(total_engagement = sum(engagement_index))
+```
+
+```{r mean engagement index, include=FALSE}
+data1 <- district_final %>%
+  group_by(time, district_id) %>%
+  summarise(sum_engagement = sum(engagement_index, na.rm = TRUE), .groups = "drop")
+```
+
+```{r mean pct access, include=FALSE}
+data2 <- district_final %>%
+  group_by(time, district_id) %>%
+  summarise(mean_pctaccess = mean(pct_access, na.rm = TRUE), .groups = "drop")
+```
+
+\newpage
+
+## 2. Data Visualisation
+**Provide evidence of your visualisation techniques and the reason for your choice of visual tools. Provide a description of each visualisation you are presenting. There is no need to show your code.**
+
+<br>
+
+```{r installing package for graphs, include=FALSE}
+install.packages("reshape2")
+library(reshape2)
+install.packages("TSstudio")
+library(TSstudio)
+library(ggplot2)
+```
+
+```{r install plotly, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+library(plotly)
+```
+First let's look at the amount of engagement data we have from each district
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+ggplot(data=district_final4, aes(x=month, fill=district_id)) +
+  geom_bar(position="identity", alpha=0.5) +
+  theme_minimal()+
+  ggtitle("Count of Data Received from Each District in 2020")+
+  labs(x = "Month", y = "Number of Data Rows")
+```
+```{r graph10codes, echo=TRUE, message=FALSE, warning=FALSE}
+ggplot(data=district_final4, aes(x=month, fill = district_id)) +
+  geom_histogram (stat="count", binwidth=0.2, alpha=0.5) +
+  facet_wrap(~ district_id)+
+  theme_minimal() +
+  ggtitle("Count of Data Received from Each District in 2020")+
+  labs(x = "Month", y = "Number of Data Rows")
+```
+- Next, let's look at how the level of broadband access varies from each district
+```{r graph11codes, echo=TRUE, message=FALSE, warning=FALSE}
+  # geom_bar(stat = "identity", position = "stack", alpha = 0.5) +
+  # theme_minimal() +
+  # ggtitle("Percentage of Data Access from Each District in 2020")+
+  # labs(x = "Month", y = "Percentage of Data Access")
+ggplot(data = district_final4, aes(x = month, y = pct_access, fill = district_id)) +
+  geom_bar(stat = "identity", position = "stack", alpha = 0.5) +
+  theme_minimal() +
+  ggtitle("Percentage of Data Access from Each District in 2020") +
+  labs(x = "Month", y = "Percentage of Data Access")
+```
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+ggplot(data = district_final4, aes(x = month, y = pct_access, fill = district_id)) +
+  geom_bar(stat = "identity", position = "stack", alpha = 0.5) +
+  theme_minimal() +
+  facet_wrap(~ district_id)+
+  ggtitle("Percentage of Data Access from Each District in 2020")+
+  labs(x = "Month", y = "Percentage of Data Access")
+```
+1. What is the picture of digital connectivity and engagement in 2020?
+
+- As a first step towards analyzing the data, a preliminary scatterplot can be used to visualize the relationship between engagement and and broadband access(connectivity). This helps in identifying trends in the data which can be further explored.
+```{r echo=TRUE, warning=FALSE}
+# ggplot(district_final) + 
+#   geom_point(aes(x=engagement_index, y=pct_access, color = district_id))+ 
+#   xlab("Engagement Index")+
+#   ylab("Percentage of Students Access")+
+#   ggtitle("Correlation of broadband access and engagement in 2020")
+ggplot(data = district_final, aes(x = engagement_index, y = pct_access, color = district_id)) +
+  geom_point() +
+  labs(x = "Engagement Index", y = "Percentage of Students Access", title = "Correlation of broadband access and engagement in 2020")
+```
+
+2. What is the effect of the COVID-19 pandemic on online and distance learning, and how might this also evolve in the future?
+```{r echo=TRUE, warning=FALSE}
+ggplot(data1, aes(x = time, y = sum_engagement, color = district_id)) +
+  geom_line(linewidth=0.6) +
+  xlab("Time") +
+  ylab("Engagement Index Mean") +
+  ggtitle("Engagement Index Growth in 2020")+
+  xlim(as.Date("2020-01-01"), as.Date("2020-12-31"))+  
+  ylim(0, 200000) +
+  scale_color_discrete(name = "District ID")
+```
+```{r echo=TRUE, warning=FALSE}
+ggplot(data2, aes(x = time, y = mean_pctaccess, color = district_id)) +
+  geom_line(linewidth=0.6) +
+  xlab("Time") +
+  ylab("Percentage Access Mean") +
+  ggtitle("Percentage Access Growth in 2020")+
+  xlim(as.Date("2020-01-01"), as.Date("2020-12-31"))+
+  scale_color_discrete(name = "District ID")
+```
+- I am now focusing on the top 10 learning platforms, and plotting their respective engagement data.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+graph8 = ggplot(top_10_product, aes(x = lp_id, fill = product_name, y = total_engagement)) +
+  geom_bar(stat = "sum", na.rm = FALSE) +
+  labs(x = "Learning Platform", y = "Sum of Engagement Index") +
+  ggtitle("Top 10 Learning Platform Based on 5 District Samples") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  scale_fill_manual(values = rainbow(length(unique(top_10_product$product_name)))) +
+  labs(fill = "Learning Platform Name")+
+  scale_y_continuous(labels = scales::comma, breaks = seq(0, 30000000, by = 500000)) +
+  theme(axis.text.y = element_text(size = 5))  # Adjust font size for y-axis labels
+# Convert ggplot to plotly
+ggplotly(graph8)
+```
+
+3. How does student engagement with different types of education technology change over the course of the pandemic?
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+top372 <- top372 %>%
+  mutate(engagement_index = as.numeric(engagement_index))
+data3 <- top372 %>%
+  group_by(pef_cat,district_id) %>%
+  summarise(sum_engagement = sum(engagement_index, na.rm = TRUE))
+```
+
+- I have taken the primary essential function data (LC = Learning & Curriculum, CM = Classroom Management, and SDO = School & District Operations) to further analyze the data.
+```{r echo=TRUE}
+ggplot(data3, aes(x = pef_cat, y = sum_engagement, fill=district_id)) +
+  geom_bar(stat='sum',alpha=0.5) +
+  labs(x = "Learning Platform", y = "Sum of Engagement Index") +
+  ggtitle("Primary Essential Function Distribution") +
+  scale_y_continuous(labels = scales::comma,breaks = seq(0, 30000000, by = 5000000))
+```
+- A line graph is created to track the changes in how engaged users are with different kinds of learning environments monthly. This was done in order to obtain insight into how the COVID-19 epidemic affected the development of learning systems. 
+```{r message=FALSE, warning=FALSE, include=FALSE}
+data4 <- top372 %>%
+  group_by(pef_cat,month) %>%
+  summarise(sum_engagement = sum(engagement_index, na.rm = TRUE))
+
+data4$months <- data4$month
+
+data4=data4 %>%
+  mutate(months = replace(months,months == "01","01/01/2020")) %>%
+  mutate(months = replace(months,months == "02","01/02/2020")) %>% 
+  mutate(months = replace(months,months == "03","01/03/2020")) %>% 
+  mutate(months = replace(months,months == "04","01/04/2020")) %>%
+  mutate(months = replace(months,months == "05","01/05/2020")) %>%
+  mutate(months = replace(months,months == "06","01/06/2020")) %>%
+  mutate(months = replace(months,months == "07","01/07/2020")) %>%
+  mutate(months = replace(months,months == "08","01/08/2020")) %>%
+  mutate(months = replace(months,months == "09","01/09/2020")) %>%
+  mutate(months = replace(months,months == "10","01/10/2020")) %>%
+  mutate(months = replace(months,months == "11","01/11/2020")) %>%
+  mutate(months = replace(months,months == "12","01/12/2020"))
+
+data4 <- data4 %>%
+  mutate(months = as.Date(months, "%d/%m/%y"))
+```
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+ggplot(data4, aes(x = months, y = sum_engagement, color = pef_cat)) +
+  geom_line(linewidth=0.6) +
+  xlab("Month") +
+  ylab("Total Engagement Index")+
+  ggtitle("Engagement Index Growth in 2020")+
+  xlim(as.Date("2020-01-01"), as.Date("2020-12-31"))+
+  scale_x_date(date_breaks = "1 month", date_labels = "%b")+
+  scale_y_continuous(labels = scales::comma,breaks = seq(0, 30000000, by = 500000))+
+  labs(color = "Primary Essential Function")
+```
+
+
+\newpage
+
+
+## 3. Findings  
+**Clearly explain your findings and provide a valid conclusion of your analysis. References may be used if required.(max 500 words) **
+
+**Overview of the datasets and the data**
+-The bar chart gives a comprehensive insight into the data volume that we have from all the datasets. We can see that District 1044 has provided the largest volume of data, while district 1131 has very low engagement data.
+-In essence, District 1131 lags behind considerably in Data sharing, whereas District 1044 has a strong commitment to data exchange. However, Districts 1000, 1039, and 1052 show a continuous and stable pattern of data contributions, making a consistent contribution to the engagement study.
+
+**Importanace of Broadband Access**
+-The scatterplot strongly suggests the positive correlation between engagement and digital connectivity. In other words, people are more likely to participate effectively in online learning and other digital activities when they have a strong digital connection, which includes dependable internet access and the appropriate gadgets.
+-People can participate in digital activities more easily when there is strong digital connectivity; weak or restricted connectivity can hinder them. This division emphasizes how important it is to have access to digital tools for meaningful interaction in today's digital world, even in a formal setting, as the scatterplot makes clear.
+
+**Enagegement Index and Percentage Access Growth variables**
+-The influence of the COVID-19 pandemic on online and distance learning in 2020 is depicted in both line graphs. It shows clear trends, with a discernible decline in the engagement index and percentage access (pct access) between June and August. Subsequent data, however, indicates that five districts show a recovery phase, as ndicated by an upward trend in the engagement index and percentage access.
+-Notably, the effects of the post-pandemic period varied considerably throughout districts. Districts 1052 and 1000, for example, showed a notable rise in participation and access  percentage as compared to the pre-COVID era. his suggests that the pandemic accelerated the adoption of technology and online learning in this district, pushing them to embrace digital tools and resources more extensively and rapidly than before.
+-On the other hand, district 1039 displayed a different pattern. While it did show signs of recovery, it was not able to fully regain the levels of engagement and percentage access seen before the COVID-19 pandemic. This indicates that district 1039 faced ongoing challenges or adjustments in the post-pandemic period that affected its online learning outcomes, showing that the impact of the pandemic varied across districts.
+
+**Analysing the learning platforms**
+-We now focus on the usage of learning platforms in the top five districts, specifically the top 10 learning platforms, based on engagement data. We can see from the bar graph that 'Google Docs' has done tremendously, with the highest level of engagement amongst all the learning platforms.
+-One intriguing aspect about this data is that there is a variable, 'unknown', which shows a considerable volume of data, more than some of the top learning platforms.
+
+**Primary Essential Function**
+- Based on the line and bar graph , we can see that the “Primary Essential Function” category mostly uses the “LC” (Learning & Curriculum) learning platform, followed by “SDO” (School & District Operations), and “CM” (Classroom Management) comes last. The chart shows that the “LC/CM/SDO” combination has a much lower total engagement score. This is because there are not many learning platforms that cover all the essential functions required by the “Primary Essential Function” category. LC also have the highest number of engagement because majority of the learning platforms available in 2020 are categorized as LC.
