@@ -14,24 +14,32 @@ An exploratory analysis of a synthetic Amazon e-commerce dataset (100,000 rows, 
 
 ## Key Findings
 
-**Dashboard 1 — Impact of Discount on Customer Retention**
+**Dashboard 1 - Impact of Discount on Customer Retention**
 59.75% of repeat customers had a discounted first order, almost identical to the 59.85% rate across all customers. Discounts do not appear to drive retention.
 
-**Dashboard 2 — Retention Across Key Segments**
+**Dashboard 2 - Retention Across Key Segments**
 Retention holds at ~86% regardless of product category, price tier, or payment method. No tested segment factor meaningfully differentiates retention rates.
 
-**Dashboard 3 — Temporal Business Performance**
+**Dashboard 3 - Temporal Business Performance**
 Total revenue of $91.8M is stable year-on-year. A consistent February revenue dip (~9.4% below monthly average) appears across all five years, suggesting a recurring seasonal demand pattern.
+
+## Skills Demonstrated
+
+- Tableau dashboard development
+- Customer retention and revenue analysis
+- Exploratory data analysis using a large synthetic dataset
+- Business question framing and insight communication
+- Segment comparison across discounts, product categories, price tiers, and payment methods
 
 ## Limitations
 
 - Findings are descriptive, not causal
 - Factors outside the dataset (customer service, delivery experience) may better explain retention consistency
-- Dataset is synthetic — patterns may not reflect real Amazon behaviour
+- Dataset is synthetic, so patterns may not reflect real Amazon behaviour
 
 ## Files
 
-- `CustomerRetentionRevenueAnalysis.twbx` — Tableau workbook with all three dashboards
+- `CustomerRetentionRevenueAnalysis.twbx` - Tableau workbook with all three dashboards
 
 ## Live Dashboard
 
