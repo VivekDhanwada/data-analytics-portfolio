@@ -4,7 +4,7 @@ Exploratory analysis of real NSW Transport Opal card tap-on/tap-off data using P
 
 ## Overview
 
-An exploratory analysis of real NSW Transport Opal card tap-on/tap-off data across two contrasting one-week periods — a standard November week (Nov 21–27, 2016) and the Christmas/New Year period (Dec 26, 2016 – Jan 1, 2017). The project uses PostgreSQL for data loading, cleaning, and analysis, and Tableau for visualisation across three dashboards.
+An exploratory analysis of real NSW Transport Opal card tap-on/tap-off data across two contrasting one-week periods: a standard November week (Nov 21-27, 2016) and the Christmas/New Year period (Dec 26, 2016 - Jan 1, 2017). The project uses PostgreSQL for data loading, cleaning, and analysis, and Tableau for visualisation across three dashboards.
 
 The dataset comprises 398,019 rows across two travel files and a service alerts file, covering four transport modes: train, bus, ferry, and light rail.
 
@@ -19,15 +19,15 @@ The dataset comprises 398,019 rows across two travel files and a service alerts 
 
 **Dashboard 1 — Travel Behaviour**
 
-Morning peak demand fell sharply in December, while ferry travel increased — suggesting a shift from commuter travel to holiday-period leisure travel. Weekday travel dropped 50% while weekend travel held steady, compressing the weekday-to-weekend ratio from 5.6x in November to 2.6x in December.
+Morning peak demand fell sharply in December, while ferry travel increased, suggesting a shift from commuter travel to holiday-period leisure travel. Weekday travel dropped 50% while weekend travel held steady, compressing the weekday-to-weekend ratio from 5.6x in November to 2.6x in December.
 
 **Dashboard 2 — Location Demand**
 
-Circular Quay was the only top location where December tap volume exceeded November, reaching 490,482 taps and rising from 10th to 4th busiest location — consistent with increased ferry activity during the holiday period. Sydney CBD (postcode 2000) and Town Hall Station remained the highest-volume locations across both periods.
+Circular Quay was the only top location where December tap volume exceeded November, reaching 490,482 taps and rising from 10th to 4th busiest location, consistent with increased ferry activity during the holiday period. Sydney CBD (postcode 2000) and Town Hall Station remained the highest-volume locations across both periods.
 
 **Dashboard 3 — Service Disruptions**
 
-Trip and delay alerts were the most frequent disruption types across all months. Incident alerts had the longest average duration in December at 136 hours, compared to 73 hours in November — suggesting lower-frequency events may still create significant operational impact. Trackwork alerts appeared only in November, consistent with maintenance activity pausing over the Christmas period.
+Trip and delay alerts were the most frequent disruption types across all months. Incident alerts had the longest average duration in December at 136 hours, compared to 73 hours in November, suggesting lower-frequency events may still create significant operational impact. Trackwork alerts appeared only in November, consistent with maintenance activity pausing over the Christmas period.
 
 ## Data Quality Notes
 
@@ -48,15 +48,23 @@ Trip and delay alerts were the most frequent disruption types across all months.
 
 ## Project Structure
 
-- [`SQL1_setup.sql`](./SQL1_setup.sql) — Table creation, CSV loading, and data preparation
-- [`peak_demand_seasonal_shift.sql`](./peak_demand_seasonal_shift.sql) — Peak demand by time, mode, and day type
-- [`disruption_analysis.sql`](./disruption_analysis.sql) — Alert frequency and duration analysis
-- [`demand_concentration.sql`](./demand_concentration.sql) — Top locations and peak time per location
+- [`SQL1_setup.sql`](./SQL1_setup.sql) - Table creation, CSV loading, and data preparation
+- [`peak_demand_seasonal_shift.sql`](./peak_demand_seasonal_shift.sql) - Peak demand by time, mode, and day type
+- [`disruption_analysis.sql`](./disruption_analysis.sql) - Alert frequency and duration analysis
+- [`demand_concentration.sql`](./demand_concentration.sql) - Top locations and peak time per location
+
+## Skills Demonstrated
+
+- SQL data cleaning and transformation
+- PostgreSQL querying and aggregation
+- CTEs, joins, window functions, and date/time extraction
+- Tableau dashboard development
+- Transport demand and disruption analysis
 
 ## Limitations
 
-- Each period covers only one week — findings are illustrative, not statistically representative of broader seasonal trends
-- Tap-on and tap-off records are separate rows, not paired journeys — origin-destination analysis is not possible with this dataset
+- Each period covers only one week, so findings are illustrative, not statistically representative of broader seasonal trends
+- Tap-on and tap-off records are separate rows, not paired journeys, so origin-destination analysis is not possible with this dataset
 - The `loc` column's mixed format (station names vs postcodes) limits precise geographic analysis without an external lookup table
 - Service alert duration outliers (e.g. incidents averaging 136 hours) may reflect unclosed alerts rather than actual disruption duration
 
