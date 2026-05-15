@@ -6,6 +6,8 @@ Analysis of 20 years of Australian Bureau of Statistics (ABS) census data from 1
 
 This project uses Australian Bureau of Statistics census data to explore how Australia's population and migration patterns changed over two decades. Three Power BI dashboards were built to address distinct analytical objectives, progressing from national-level population trends to more granular migration insights.
 
+This project was completed as part of the Master of Business Analytics program at Macquarie University.
+
 The analysis covers five census years: 1996, 2001, 2006, 2011, and 2016.
 
 ## Dashboards
