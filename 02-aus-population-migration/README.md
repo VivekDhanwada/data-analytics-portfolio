@@ -12,13 +12,13 @@ The analysis covers five census years: 1996, 2001, 2006, 2011, and 2016.
 
 ## Dashboards
 
-**Dashboard 1 - National Population Overview**  
+**Dashboard 1 - National Population Overview**
 Covers total population growth, state-level comparisons, gender distribution, and age group demographics from 1996 to 2016. Interactive slicers allow filtering by region, sex, and year.
 
-**Dashboard 2 - Population by Country of Birth**  
+**Dashboard 2 - Population by Country of Birth**
 Explores the country-of-birth composition of Australian residents, showing migration diversity across gender and region. Top origin countries are visualised using clustered column, pie, and horizontal bar charts.
 
-**Dashboard 3 - Fastest-Growing Migrant Communities**  
+**Dashboard 3 - Fastest-Growing Migrant Communities**
 Identifies countries with the highest percentage population growth from 2001 to 2016, excluding dominant groups. Nepal grew from 2,430 to more than 59,000 residents, representing 2,330% growth. Bhutan, Liberia, and Mongolia also showed strong relative growth.
 
 ## Key Findings
@@ -47,10 +47,14 @@ Identifies countries with the highest percentage population growth from 2001 to 
 - Excel-based percentage growth calculation
 - Translating population data into business-style insights
 
+## Data Source
+
+Australian Bureau of Statistics (ABS) census data, 1996–2016. Data accessed via ABS community profile and country of birth datasets.
+
 ## Limitations
 
 - Data covers 1996 to 2016 only, so post-2016 trends are not captured.
-- Power BI Web was used on Mac, so some calculations were prepared externally in Excel due to platform limitations.
+- Percentage growth calculations were prepared in Excel and integrated into the Power BI dashboards.
 - Top country selections are static rather than dynamically updated by slicers.
 - Age categories were grouped for clarity.
 
