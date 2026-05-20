@@ -4,7 +4,7 @@ Analysis of Australian National Electricity Market (NEM) emissions intensity and
 
 ## Overview
 
-This project analyses emissions intensity and fossil fuel generator bidding behaviour in the Australian National Electricity Market. The analysis compares 2019 and 2025 data to identify how carbon intensity changed across regions and how fossil fuel generator bidding behaviour shifted over time.
+This project analyses emissions intensity and fossil fuel generator bidding behaviour in the Australian National Electricity Market. The analysis compares selected 2019 and 2025 dispatch periods to identify how carbon intensity changed across regions and how fossil fuel generator bidding behaviour shifted over time.
 
 The project was completed as part of a Macquarie University capstone project and awarded a Distinction.
 
@@ -50,11 +50,11 @@ Time series and intra-daily trend charts showed clear differences in emissions p
 - Time series analysis using 5-minute interval dispatch data
 - Data aggregation and regional comparison
 - Matplotlib visualisation and analytical reporting
-- Translating technical findings into client-style recommendations
+- Translating technical findings into a client-style analytical report
 
 ## Contribution Note
 
-This was a group capstone project. My individual contribution focused on Python code development and data cleaning. The final report represents collaborative group work.
+This was a group capstone project. My individual contribution focused on Python code development for the bidding behaviour analysis and data cleaning. The final report represents collaborative group work.
 
 ## Data Source
 
