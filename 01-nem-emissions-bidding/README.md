@@ -18,13 +18,13 @@ The dataset covers 1.6M+ rows of 5-minute interval dispatch and emissions data.
 
 ## Key Findings
 
-**NSW showed the strongest carbon intensity improvement**  
+**NSW showed the strongest carbon intensity improvement**
 NSW achieved a 21.7% reduction in carbon intensity between 2019 and 2025, compared with a national average decline of 7.7%.
 
-**Fossil generator bidding became more volatile**  
+**Fossil generator bidding became more volatile**
 Fossil generators shifted from baseload providers toward more strategic peak-pricing behaviour. The fossil bid price interquartile range widened from $85/MWh to $210/MWh.
 
-**Regional emissions patterns varied significantly**  
+**Regional emissions patterns varied significantly**
 Time series and intra-daily trend charts showed clear differences in emissions profiles across NEM regions, highlighting the importance of region-level analysis.
 
 ## Tools & Techniques
@@ -32,7 +32,6 @@ Time series and intra-daily trend charts showed clear differences in emissions p
 - Python
 - pandas
 - Matplotlib
-- API-based data extraction
 - 5-minute interval dispatch data
 - Data cleaning and aggregation
 - Time series analysis
@@ -48,7 +47,6 @@ Time series and intra-daily trend charts showed clear differences in emissions p
 ## Skills Demonstrated
 
 - Python data cleaning and preparation
-- API-based data extraction
 - Time series analysis using 5-minute interval dispatch data
 - Data aggregation and regional comparison
 - Matplotlib visualisation and analytical reporting
@@ -56,7 +54,7 @@ Time series and intra-daily trend charts showed clear differences in emissions p
 
 ## Contribution Note
 
-This was a group capstone project. My individual contribution focused on Python code development, data cleaning, and Task 4 analysis. The final report represents collaborative group work.
+This was a group capstone project. My individual contribution focused on Python code development and data cleaning. The final report represents collaborative group work.
 
 ## Data Source
 
