@@ -1,6 +1,6 @@
 # Australian Population & Migration Trends Analysis
 
-Analysis of 20 years of Australian Bureau of Statistics (ABS) census data from 1996 to 2016 across three Power BI dashboards covering national population growth, country-of-birth composition, and fastest-growing migrant communities by state and gender.
+Analysis of 20 years of Australian Bureau of Statistics (ABS) census data from 1996 to 2016 across three Power BI dashboards covering national population growth, country-of-birth composition, and fast-growing migrant communities across Australian states and demographic groups.
 
 ## Overview
 
@@ -45,7 +45,7 @@ Identifies countries with the highest percentage population growth from 2001 to 
 - Data storytelling and demographic analysis
 - Interactive slicer and filter design
 - Excel-based percentage growth calculation
-- Translating population data into business-style insights
+- Translating population data into dashboard-ready insights
 
 ## Data Source
 
