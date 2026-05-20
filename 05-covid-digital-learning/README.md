@@ -1,10 +1,10 @@
 # COVID-19 Impact on Digital Learning
 
-Analysis of how the COVID-19 pandemic affected student engagement with digital learning platforms across five US school districts in 2020, using R and ggplot2.
+Analysis of student engagement, education platform usage, and broadband access data across five US school districts in 2020, using R and ggplot2.
 
 ## Overview
 
-This project analyses engagement and broadband access data from five school districts (IDs: 1000, 1039, 1044, 1052, 1131) across 2020 to understand how the pandemic shifted student interaction with online learning tools. The analysis covers data cleaning, exploratory visualisation, and findings across three analytical questions.
+This project analyses engagement, education platform usage, and broadband access data from five school districts (IDs: 1000, 1039, 1044, 1052, 1131) across 2020 to examine patterns in online learning participation. The analysis covers data cleaning, exploratory visualisation, and findings across three analytical questions.
 
 This project was completed as part of the Master of Business Analytics program at Macquarie University.
 
@@ -17,14 +17,14 @@ This project was completed as part of the Master of Business Analytics program a
 ## Key Findings
 
 - District 1044 contributed the largest data volume, while District 1131 had significantly lower engagement data throughout.
-- A strong positive correlation exists between broadband access and engagement index. Higher connectivity consistently corresponded with higher participation.
+- A positive relationship was observed between broadband access and engagement index. Districts with higher broadband access showed higher student engagement in the dataset.
 - Engagement and percentage access declined between June and August 2020, followed by a recovery phase across all five districts.
-- Districts 1052 and 1000 exceeded pre-COVID engagement levels post-recovery, suggesting accelerated digital adoption. District 1039 did not fully recover, indicating ongoing structural challenges.
+- Districts 1052 and 1000 exceeded pre-COVID engagement levels post-recovery, suggesting stronger digital learning uptake in those districts. District 1039 did not fully recover, indicating possible ongoing access or engagement challenges.
 - Google Docs was the highest-engagement learning platform across all districts. Learning & Curriculum platforms dominated overall engagement, consistent with the majority of available tools being categorised as Learning & Curriculum.
 
 ## Tools & Techniques
 
-- R, ggplot2, plotly, dplyr, tidyverse
+- R, tidyverse, ggplot2, plotly
 - Data cleaning: standardising inconsistent state and locale labels, handling date format errors, removing duplicates and missing values
 - Visualisations: bar charts, scatter plots, line graphs, faceted plots, and interactive plotly charts
 
@@ -35,7 +35,7 @@ This project was completed as part of the Master of Business Analytics program a
 - ggplot2 visualisation
 - Correlation and trend analysis
 - Education technology usage analysis
-- Communicating pandemic-related digital learning insights
+- Communicating digital learning participation insights
 
 ## Files
 
