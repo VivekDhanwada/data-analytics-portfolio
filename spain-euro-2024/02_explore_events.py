@@ -37,3 +37,6 @@ df['type_name'] = df['type'].apply(lambda x: x['name'])
 for event_type, group in df.groupby('type_name'):
     has_location = group['location'].notna().any()
     print(f"{event_type} — location: {has_location}")
+
+shots = df[df['type_name'] == 'Shot']
+print(json.dumps(events[shots.index[0]], indent=2, ensure_ascii=False))
