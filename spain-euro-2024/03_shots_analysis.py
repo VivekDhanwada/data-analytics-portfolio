@@ -1,6 +1,7 @@
 import requests
 import json
 import pandas as pd
+import matplotlib.pyplot as plt
 
 BASE_URL = "https://raw.githubusercontent.com/statsbomb/open-data/master/data"
 
@@ -42,3 +43,43 @@ print(df_shots.head())
 
 df_shots.to_csv('spain-euro-2024/spain_shots.csv', index=False)
 print("Saved: spain_shots.csv")
+
+fig, ax = plt.subplots(figsize=(8, 8))
+
+# Pitch outline
+ax.set_facecolor('#1a1a2e')
+fig.patch.set_facecolor('#1a1a2e')
+
+ax.plot([0, 0, 120, 120, 0], [0, 80, 80, 0, 0], color='white', linewidth=2)
+
+# Halfway line
+ax.plot([60, 60], [0, 80], color='white', linewidth=1)
+
+# Penalty areas
+ax.plot([102, 102, 120, 120, 102], [18, 62, 62, 18, 18], color='white', linewidth=1)
+ax.plot([0, 0, 18, 18, 0], [18, 62, 62, 18, 18], color='white', linewidth=1)
+
+# Goals
+ax.plot([120, 120], [36, 44], color='white', linewidth=4)
+ax.plot([0, 0], [36, 44], color='white', linewidth=4)
+
+for _, shot in df_shots.iterrows():
+    color = 'red' if shot['outcome'] == 'Goal' else 'white'
+    size = shot['xg'] * 1000
+    ax.scatter(shot['x'], shot['y'], c=color, s=size, alpha=0.7, zorder=3)
+
+ax.set_title('Spain Euro 2024 — Shot Map', color='white', fontsize=16, pad=15)
+ax.set_xlim(60, 120)
+ax.set_ylim(0, 80)
+ax.axis('off')
+
+
+from matplotlib.lines import Line2D
+legend_elements = [
+    Line2D([0], [0], marker='o', color='none', markerfacecolor='red', markersize=10, label='Goal'),
+    Line2D([0], [0], marker='o', color='none', markerfacecolor='white', markersize=10, label='No Goal')
+]
+ax.legend(handles=legend_elements, loc='upper left', facecolor='#1a1a2e', labelcolor='white')
+
+plt.savefig('spain-euro-2024/spain_shot_map.png', dpi=150, bbox_inches='tight', facecolor='#1a1a2e')
+plt.show()
