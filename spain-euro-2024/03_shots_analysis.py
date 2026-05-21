@@ -16,6 +16,29 @@ for match_id in MATCH_IDS:
     
     for event in events:
         if event['type']['name'] == 'Shot' and event['team']['id'] == SPAIN_ID:
+            event['match_id'] = match_id
             all_shots.append(event)
 
 print(f"Total Spain shots: {len(all_shots)}") 
+
+shot_data = []
+
+for shot in all_shots:
+    shot_data.append({
+        'player': shot['player']['name'],
+        'position': shot['position']['name'],
+        'x': shot['location'][0],
+        'y': shot['location'][1],
+        'minute': shot['minute'],
+        'xg': shot['shot']['statsbomb_xg'],
+        'outcome': shot['shot']['outcome']['name'],
+        'shot_type': shot['shot']['type']['name'],
+        'body_part': shot['shot']['body_part']['name'],
+        'match_id': shot['match_id']  
+    })
+
+df_shots = pd.DataFrame(shot_data)
+print(df_shots.head())
+
+df_shots.to_csv('spain-euro-2024/spain_shots.csv', index=False)
+print("Saved: spain_shots.csv")
