@@ -77,7 +77,8 @@ ax.axis('off')
 from matplotlib.lines import Line2D
 legend_elements = [
     Line2D([0], [0], marker='o', color='none', markerfacecolor='red', markersize=10, label='Goal'),
-    Line2D([0], [0], marker='o', color='none', markerfacecolor='white', markersize=10, label='No Goal')
+    Line2D([0], [0], marker='o', color='none', markerfacecolor='white', markersize=10, label='No Goal'),
+    Line2D([0], [0], marker='o', color='none', markerfacecolor='white', markersize=6, label='Size = xG value')
 ]
 ax.legend(handles=legend_elements, loc='upper left', facecolor='#1a1a2e', labelcolor='white')
 
