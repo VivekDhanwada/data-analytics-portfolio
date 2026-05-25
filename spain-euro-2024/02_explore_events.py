@@ -40,3 +40,24 @@ for event_type, group in df.groupby('type_name'):
 
 shots = df[df['type_name'] == 'Shot']
 print(json.dumps(events[shots.index[0]], indent=2, ensure_ascii=False))
+
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(figsize=(12, 8))
+
+ax.set_facecolor('#1a1a2e')
+fig.patch.set_facecolor('#1a1a2e')
+
+ax.plot([0, 0, 120, 120, 0], [0, 80, 80, 0, 0], color='white', linewidth=2)
+ax.plot([60, 60], [0, 80], color='white', linewidth=1)
+ax.plot([102, 102, 120, 120, 102], [18, 62, 62, 18, 18], color='white', linewidth=1)
+ax.plot([0, 0, 18, 18, 0], [18, 62, 62, 18, 18], color='white', linewidth=1)
+ax.plot([120, 120], [36, 44], color='white', linewidth=4)
+ax.plot([0, 0], [36, 44], color='white', linewidth=4)
+
+ax.set_xlim(0, 120)
+ax.set_ylim(0, 80)
+ax.axis('off')
+
+plt.savefig('spain-euro-2024/pitch_blank.png', dpi=150, bbox_inches='tight', facecolor='#1a1a2e')
+plt.show()

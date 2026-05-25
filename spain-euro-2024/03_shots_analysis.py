@@ -84,3 +84,7 @@ ax.legend(handles=legend_elements, loc='upper left', facecolor='#1a1a2e', labelc
 
 plt.savefig('spain-euro-2024/spain_shot_map.png', dpi=150, bbox_inches='tight', facecolor='#1a1a2e')
 plt.show()
+
+from collections import Counter
+outcomes = [e['shot']['outcome']['name'] for e in all_shots]
+print(Counter(outcomes))
