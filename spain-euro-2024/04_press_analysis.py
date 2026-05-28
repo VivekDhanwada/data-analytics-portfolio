@@ -28,7 +28,6 @@ print(f"Total Spain presses: {len(all_press)}")
 print(f"Total Spain ball recoveries: {len(all_recoveries)}")
 
 press_data = []
-
 for press in all_press:
     press_data.append({
         'x': press['location'][0],
@@ -36,7 +35,6 @@ for press in all_press:
         'match_id': press['match_id']  
     })
 df_press = pd.DataFrame(press_data)
-print(df_press.head())
 
 recovery_data = []
 for recovery in all_recoveries:
@@ -46,34 +44,42 @@ for recovery in all_recoveries:
         'match_id': recovery['match_id']  
     })
 df_recovery = pd.DataFrame(recovery_data)
-print(df_recovery.head())
+
+def assign_zone(x, y):
+    if x < 40:
+        third = 'Defensive Third'
+    elif x < 80:
+        third = 'Middle Third'
+    else:
+        third = 'Attacking Third'
+    if y < 40:
+        channel = 'Left'
+    else:
+        channel = 'Right'
+    return f"{third} - {channel}"
+
+df_press['zone'] = df_press.apply(lambda row: assign_zone(row['x'], row['y']), axis=1)
 
 df_press.to_csv('spain-euro-2024/spain_press.csv', index=False)
 df_recovery.to_csv('spain-euro-2024/spain_recovery.csv', index=False)
-print("Saved: spain_press.csv and spain_recovery.csv")
+
+zone_counts = df_press.groupby('zone').size().reset_index(name='press_count')
+print(zone_counts.sort_values('press_count', ascending=False))
+zone_counts.to_csv('spain-euro-2024/spain_press_zones.csv', index=False)
+print("Saved: spain_press.csv, spain_recovery.csv, spain_press_zones.csv")
 
 fig, ax = plt.subplots(figsize=(8, 8))
-
-# Pitch outline
 ax.set_facecolor('#1a1a2e')
 fig.patch.set_facecolor('#1a1a2e')
-
 ax.plot([0, 0, 120, 120, 0], [0, 80, 80, 0, 0], color='white', linewidth=2)
-
-# Halfway line
 ax.plot([60, 60], [0, 80], color='white', linewidth=1)
-
-# Penalty areas
 ax.plot([102, 102, 120, 120, 102], [18, 62, 62, 18, 18], color='white', linewidth=1)
 ax.plot([0, 0, 18, 18, 0], [18, 62, 62, 18, 18], color='white', linewidth=1)
-
-# Goals
 ax.plot([120, 120], [36, 44], color='white', linewidth=4)
 ax.plot([0, 0], [36, 44], color='white', linewidth=4)
 
 for _, press in df_press.iterrows():
     ax.scatter(press['x'], press['y'], c='orange', s=15, alpha=0.3, zorder=3)
-
 for _, recovery in df_recovery.iterrows():
     ax.scatter(recovery['x'], recovery['y'], c='cyan', s=30, alpha=0.7, zorder=4)
 
@@ -89,10 +95,9 @@ legend_elements = [
 ]
 ax.legend(handles=legend_elements, loc='upper left', facecolor='#1a1a2e', labelcolor='white')
 
-plt.savefig('spain-euro-2024/spain_press_map.png', dpi=150, bbox_inches='tight', facecolor='#1a1a2e')
-
 median_press_x = df_press['x'].median()
 ax.axvline(x=median_press_x, color='orange', linestyle='--', linewidth=1.5, alpha=0.8)
 ax.text(median_press_x + 1, 5, f'Median press: x={median_press_x:.1f}', color='orange', fontsize=9)
 
+plt.savefig('spain-euro-2024/spain_press_map.png', dpi=150, bbox_inches='tight', facecolor='#1a1a2e')
 plt.show()
