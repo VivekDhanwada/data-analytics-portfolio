@@ -28,7 +28,7 @@ The dataset covers all seven Spain matches (group stage through final) using Sta
 - `02_explore_events.py` explores event types, fields, and location availability across the dataset
 - `03_shots_analysis.py` extracts shot events, xG values, outcomes, and locations across all seven Spain matches
 - `04_press_analysis.py` analyses pressure events, recovery locations, and pressing zones
-- `05_passing_network.py` builds player passing networks, average positions, and connection strengths
+- `05_pass_analysis.py` builds player passing networks, average positions, and connection strengths
 - `06_tournament_rankings.py` aggregates all 51 Euro 2024 matches to benchmark Spain against every team in the tournament
 
 ### Key Decisions
@@ -54,12 +54,12 @@ The centre forward was not a central passing node. Spain completed 4,335 passes 
 
 ## Project Structure
 
-- [`01_fetch_data.py`](./01_fetch_data.py) — Fetch and validate raw event JSON for a single match
-- [`02_explore_events.py`](./02_explore_events.py) — Inspect event types, fields, and data structure
-- [`03_shots_analysis.py`](./03_shots_analysis.py) — Shot locations, xG, outcomes, and goal-scoring positions
-- [`04_press_analysis.py`](./04_press_analysis.py) — Press height, zone distribution, and recovery locations
-- [`05_passing_network.py`](./05_passing_network.py) — Passing network structure, player positions, and connection strength
-- [`06_tournament_rankings.py`](./06_tournament_rankings.py) — Tournament-wide aggregation and benchmarking
+- [`01_fetch_data.py`](./scripts/01_fetch_data.py) — Fetch and validate raw event JSON for a single match
+- [`02_explore_events.py`](./scripts/02_explore_events.py) — Inspect event types, fields, and data structure
+- [`03_shots_analysis.py`](./scripts/03_shots_analysis.py) — Shot locations, xG, outcomes, and goal-scoring positions
+- [`04_press_analysis.py`](./scripts/04_press_analysis.py) — Press height, zone distribution, and recovery locations
+- [`05_pass_analysis.py`](./scripts/05_pass_analysis.py) — Passing network structure, player positions, and connection strength
+- [`06_tournament_rankings.py`](./scripts/06_tournament_rankings.py) — Tournament-wide aggregation and benchmarking
 
 ## Tech Stack
 
