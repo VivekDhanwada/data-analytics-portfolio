@@ -2,15 +2,17 @@
 
 Analysis of 20 years of Australian Bureau of Statistics (ABS) census data from 1996 to 2016 across three Power BI dashboards covering national population growth, country-of-birth composition, and fast-growing migrant communities across Australian states and demographic groups.
 
+**Key Result:** Nepal emerged as Australia's fastest-growing migrant community, increasing from 2,430 residents in 2001 to more than 59,000 in 2016 (+2,330%), highlighting demographic shifts that are often hidden behind larger migrant populations.
+
 ## Overview
 
-This project uses Australian Bureau of Statistics census data to explore how Australia's population and migration patterns changed over two decades. Three Power BI dashboards were built to address distinct analytical objectives, progressing from national-level population trends to more granular migration insights.
+This project analyses 20 years of Australian Bureau of Statistics (ABS) census data to understand how Australia's population evolved between 1996 and 2016. Three Power BI dashboards were developed to examine national population growth, migrant population composition, and emerging migrant communities that experienced rapid growth over time.
 
 This project was completed as part of the Master of Business Analytics program at Macquarie University.
 
 The analysis covers five census years: 1996, 2001, 2006, 2011, and 2016.
 
-## Dashboards
+## Analytical Questions & Dashboards
 
 **Dashboard 1 - National Population Overview**
 Covers total population growth, state-level comparisons, gender distribution, and age group demographics from 1996 to 2016. Interactive slicers allow filtering by region, sex, and year.
@@ -29,27 +31,50 @@ Identifies countries with the highest percentage population growth from 2001 to 
 - Nepal was the fastest-growing migrant group in percentage terms, increasing 2,330% from 2001 to 2016.
 - Bhutan, Liberia, and Mongolia also showed high relative growth.
 
-## Tools & Methodology
+## Dashboard Preview
+
+### 1. National Population Overview
+![National Population Overview](./screenshots/dashboard-1.png)
+
+### 2. Population by Country of Birth
+![Population by Country of Birth](./screenshots/dashboard-2.png)
+
+### 3. Fastest-Growing Migrant Communities
+![Fastest-Growing Migrant Communities](./screenshots/dashboard-3.png)
+
+## Data & Methodology
+
+### Data Sources
+- Australian Bureau of Statistics (ABS) Census Data
+- Census years: 1996, 2001, 2006, 2011 and 2016
+- Population, age, gender and country-of-birth datasets
+
+### Dataset Scope
+- Five national census periods
+- State-level and national demographic data
+- Country-of-birth analysis across migrant communities
+- Population growth calculations prepared in Excel and visualised in Power BI
+
+### Data Preparation
+- Cleaned and structured ABS demographic datasets across five census years
+- Combined state, gender, age, and country-of-birth datasets into dashboard-ready tables
+- Calculated population growth and percentage change metrics in Excel
+- Built three linked Power BI dashboards progressing from national population trends to migration-specific insights
+- Designed interactive filters for state, year, gender, age group, and country of birth
+
+## Tech Stack
 
 - Power BI Web
 - Excel
-- ABS census data across five census years
-- Percentage growth calculations prepared in Excel
-- Interactive slicers for region, sex, age, and country of birth
-- Dashboard storytelling and demographic analysis
 
 ## Skills Demonstrated
 
 - Power BI dashboard development
-- ABS census data analysis
-- Data storytelling and demographic analysis
-- Interactive slicer and filter design
-- Excel-based percentage growth calculation
-- Translating population data into dashboard-ready insights
-
-## Data Source
-
-Australian Bureau of Statistics (ABS) census data, 1996–2016. Data accessed via ABS community profile and country of birth datasets.
+- Demographic and population analysis
+- Data cleaning and preparation
+- Excel-based growth calculations
+- Interactive dashboard design
+- Data storytelling and insight communication
 
 ## Limitations
 
@@ -58,7 +83,7 @@ Australian Bureau of Statistics (ABS) census data, 1996–2016. Data accessed vi
 - Top country selections are static rather than dynamically updated by slicers.
 - Age categories were grouped for clarity.
 
-## Files
+## Source Code & Files
 
 - `Dashboard 1.pbix` - National Population Overview
 - `Dashboard 2.pbix` - Population by Country of Birth
