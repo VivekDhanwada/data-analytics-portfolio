@@ -82,25 +82,25 @@ Time-series and intra-day analysis revealed significant variation across NEM reg
 
 ## Dashboard & Visualisation Preview
 
-### 1. Carbon Intensity by Region
+### 1. Regional Emissions Comparison
 
-![Carbon Intensity](./screenshots/carbon-intensity.png)
+![Regional Emissions Comparison](./screenshots/regional-emissions-comparison.png)
 
-### 2. Fossil Generator Bid Price Distribution
+### 2. Combined Regional Trends
 
-![Bid Distribution](./screenshots/bid-distribution.png)
+![Combined Regional Trends](./screenshots/combined-regional-trends.png)
 
-### 3. Regional Emissions Trends
+### 3. Supply Curve: Fossil vs Renewable
 
-![Regional Emissions](./screenshots/regional-emissions.png)
+![Supply Curve: Fossil vs Renewable](./screenshots/supply-curve-fossil-vs-renewable.png)
 
-### 4. Intra-Day Emissions Patterns
+### 4. Bid Price Distribution (2019 vs 2025)
 
-![Daily Emissions](./screenshots/daily-emissions.png)
+![Bid Price Distribution](./screenshots/bid-price-distribution-2019-2025.png)
 
-### 5. Fossil Generator Bidding Behaviour
+### 5. Total Bid Volume by Generator Type
 
-![Bidding Behaviour](./screenshots/bidding-behaviour.png)
+![Bid Volume by Generator Type](./screenshots/bid-volume-by-generator-type.png)
 
 
 ## Contribution Note
