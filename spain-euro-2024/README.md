@@ -50,7 +50,7 @@ Spain led Euro 2024 with 1,126 pressures and 313 ball recoveries, ranking #1 in 
 
 ### Passing Network
 
-The centre forward was not a central passing node. Spain completed 4,335 passes across the tournament, ranking second only to England. The passing network was dominated by a defensive and central midfield spine: Laporte (482), Rodri (431), Fabián Ruiz (424), Cucurella (365), and Le Normand (344) were the five highest-volume passers. Thirty-five strong passing combinations (35+ passes between a pair) were identified. Yamal and Nico Williams appeared as peripheral nodes, receiving possession in advanced areas rather than participating heavily in build-up circulation.
+The centre forward was not a primary passing hub. Spain completed 4,335 passes across the tournament, ranking second only to England. The passing network was dominated by a defensive and central midfield spine: Laporte (482), Rodri (431), Fabián Ruiz (424), Cucurella (365), and Le Normand (344) were the five highest-volume passers. Thirty-five strong passing combinations (35+ passes between a pair) were identified. Yamal and Nico Williams appeared as peripheral nodes, receiving possession in advanced areas rather than participating heavily in build-up circulation.
 
 ## Project Structure
 
@@ -103,4 +103,4 @@ The centre forward was not a central passing node. Spain completed 4,335 passes 
 
 ## Interactive Dashboard
 
-<a href="https://public.tableau.com/views/spain-euro-2024-tactical-analysis/spain-euro-2024-tactical-analysis" target="_blank">View on Tableau Public</a>
+[Explore Interactive Dashboard →](https://public.tableau.com/views/spain-euro-2024-tactical-analysis/spain-euro-2024-tactical-analysis)
