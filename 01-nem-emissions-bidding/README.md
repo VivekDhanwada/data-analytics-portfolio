@@ -4,11 +4,13 @@ Analysis of Australian National Electricity Market (NEM) emissions intensity and
 
 ## Overview
 
-This project analyses emissions intensity and fossil fuel generator bidding behaviour in the Australian National Electricity Market. The analysis compares selected 2019 and 2025 dispatch periods to identify how carbon intensity changed across regions and how fossil fuel generator bidding behaviour shifted over time.
+This project analyses carbon emissions intensity and generator bidding behaviour in the Australian National Electricity Market (NEM) using Python.
+
+Using more than 1.6 million rows of dispatch and emissions data, the analysis examines how Australia's electricity market evolved between 2019 and 2025, focusing on regional decarbonisation trends, intra-day emissions patterns, and strategic bidding behaviour by fossil-fuel generators.
 
 The project was completed as part of a Macquarie University capstone project and awarded a Distinction.
 
-The dataset covers 1.6M+ rows of 5-minute interval dispatch and emissions data.
+**Key Result:** NSW reduced carbon intensity by 21.7% between 2019 and 2025, while fossil fuel generator bidding became significantly more volatile, with the bid price interquartile range widening from $85/MWh to $210/MWh.
 
 ## Analytical Questions
 
@@ -16,33 +18,53 @@ The dataset covers 1.6M+ rows of 5-minute interval dispatch and emissions data.
 2. How did fossil fuel generator bidding behaviour shift over the same period?
 3. What regional and intra-daily emissions patterns were visible in the data?
 
+## Data & Methodology
+
+### Data Sources
+
+- CSIRO NEM Emissions API
+- NEM generator bidding datasets (2019 and 2025)
+- Five NEM regions: NSW, VIC, QLD, SA and TAS
+
+### Dataset Size
+
+- Over 1.6 million rows of dispatch and emissions data
+- Five-minute interval observations across multiple years
+- Generator bidding and emissions records analysed across regions and technologies
+
+### Data Processing
+
+- Extracted and cleaned dispatch and emissions datasets using Python and pandas
+- Standardised timestamps and regional identifiers
+- Aggregated 5-minute interval data to support regional and temporal comparisons
+- Filtered and analysed fossil fuel generator bidding data across selected 2019 and 2025 periods
+- Calculated carbon intensity metrics and bidding price distributions
+- Produced comparative visualisations for emissions trends and market behaviour
+
+### Key Decisions
+
+- Analysis focused on selected 2019 and 2025 dispatch periods rather than the full historical NEM dataset
+- Fossil fuel generators were analysed separately to examine changes in bidding behaviour
+- Carbon intensity comparisons were performed at both regional and national levels
+- Interquartile range (IQR) was used to measure changes in bid price volatility
+
 ## Key Findings
 
-**NSW showed the strongest carbon intensity improvement**
-NSW achieved a 21.7% reduction in carbon intensity between 2019 and 2025, compared with a national average decline of 7.7%.
+**NSW recorded the largest emissions improvement**  
+NSW reduced carbon intensity by 21.7% between 2019 and 2025, outperforming the national average decline of 7.7%.
 
-**Fossil generator bidding became more volatile**
-Fossil generators shifted from baseload providers toward more strategic peak-pricing behaviour. The fossil bid price interquartile range widened from $85/MWh to $210/MWh.
+**Fossil generator bidding became more volatile**  
+The fossil bid price interquartile range widened from $85/MWh to $210/MWh, suggesting increased strategic bidding and stronger peak-pricing behaviour.
 
-**Regional emissions patterns varied significantly**
-Time series and intra-daily trend charts showed clear differences in emissions profiles across NEM regions, highlighting the importance of region-level analysis.
+**Regional emissions profiles differed substantially**  
+Time-series and intra-day analysis revealed significant variation across NEM regions, demonstrating that aggregate national trends masked important regional differences.
 
-## Tools & Techniques
+## Tech Stack
 
 - Python
 - pandas
 - Matplotlib
-- 5-minute interval dispatch data
-- Data cleaning and aggregation
-- Time series analysis
-- Regional comparison
-- Analytical reporting
-
-## Files
-
-- `cleandata.py` - Data extraction, cleaning, and preparation
-- `plot1.py` to `plot5.py` - Individual visualisation scripts for project charts
-- `Report.pdf` - Group client report with full findings and recommendations
+- CSIRO NEM Emissions API
 
 ## Skills Demonstrated
 
@@ -52,13 +74,38 @@ Time series and intra-daily trend charts showed clear differences in emissions p
 - Matplotlib visualisation and analytical reporting
 - Translating technical findings into a client-style analytical report
 
+## Project Structure
+
+- cleandata.py - Data extraction, cleaning and preparation
+- plot1.py to plot5.py - Individual visualisation scripts
+- Report.pdf - Capstone report excerpt containing findings and recommendations
+
+## Dashboard & Visualisation Preview
+
+### 1. Carbon Intensity by Region
+
+![Carbon Intensity](./screenshots/carbon-intensity.png)
+
+### 2. Fossil Generator Bid Price Distribution
+
+![Bid Distribution](./screenshots/bid-distribution.png)
+
+### 3. Regional Emissions Trends
+
+![Regional Emissions](./screenshots/regional-emissions.png)
+
+### 4. Intra-Day Emissions Patterns
+
+![Daily Emissions](./screenshots/daily-emissions.png)
+
+### 5. Fossil Generator Bidding Behaviour
+
+![Bidding Behaviour](./screenshots/bidding-behaviour.png)
+
+
 ## Contribution Note
 
-This was a group capstone project. My individual contribution focused on Python code development for the bidding behaviour analysis and data cleaning. The final report represents collaborative group work.
-
-## Data Source
-
-Australian National Electricity Market emissions and dispatch data accessed through the CSIRO NEM emissions data source.
+This was a group capstone project completed at Macquarie University. The Python code included in the linked repository is the cleaned, shareable version of the project code. The report PDF is an excerpt of the collaborative group report with the cover page removed. Full group authorship is acknowledged.
 
 ## Limitations
 
