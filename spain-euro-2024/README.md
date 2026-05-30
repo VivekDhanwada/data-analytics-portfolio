@@ -103,4 +103,4 @@ The centre forward was not a central passing node. Spain completed 4,335 passes 
 
 ## Interactive Dashboard
 
-[View on Tableau Public](https://public.tableau.com/views/spain-euro-2024-tactical-analysis/spain-euro-2024-tactical-analysis)
+<a href="https://public.tableau.com/views/spain-euro-2024-tactical-analysis/spain-euro-2024-tactical-analysis" target="_blank">View on Tableau Public</a>
