@@ -110,5 +110,4 @@ This was a group capstone project completed at Macquarie University. The Python 
 ## Limitations
 
 - The project compares selected 2019 and 2025 dispatch periods, so findings should be interpreted within the scope of the available data.
-- The final report was produced collaboratively, so individual contribution is stated separately above.
 - The analysis is descriptive and does not claim causal attribution for market behaviour changes.
