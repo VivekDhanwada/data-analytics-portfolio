@@ -2,11 +2,34 @@
 
 Exploratory analysis of real NSW Transport Opal card tap-on/tap-off data using PostgreSQL and Tableau, comparing travel behaviour between a standard November week and the Christmas/New Year period.
 
+**Key Result:** Weekday travel demand fell by 50% during the Christmas/New Year period, while ferry usage increased and Circular Quay became one of the busiest locations in the network, indicating a shift from commuter travel to leisure-focused travel behaviour.
+
 ## Overview
 
 An exploratory analysis of real Transport for NSW Opal card tap-on/tap-off data across two contrasting one-week periods: a standard November week (Nov 21-27, 2016) and the Christmas/New Year period (Dec 26, 2016 - Jan 1, 2017). The project uses PostgreSQL for data loading, cleaning, and analysis, and Tableau for visualisation across three dashboards.
 
 The dataset comprises 398,019 rows across two travel files and a service alerts file, covering four transport modes: train, bus, ferry, and light rail.
+
+## Data & Methodology
+
+### Data Sources
+- Transport for NSW Opal card tap-on/tap-off dataset
+- Transport for NSW service alerts dataset
+- November 21–27, 2016 travel period
+- December 26, 2016 – January 1, 2017 travel period
+
+### Data Preparation
+- Loaded and validated 398,019 transport records in PostgreSQL
+- Standardised inconsistent CSV formatting using Python preprocessing
+- Removed invalid time values (-1) from time-based analysis
+- Handled missing tap-direction values in the December dataset
+- Combined travel and service-alert datasets for comparative analysis
+
+### Dataset Scope
+- 398,019 transport transactions
+- Four transport modes: train, bus, ferry, and light rail
+- Two contrasting one-week travel periods
+- Service disruption and delay records
 
 ## Analytical Questions
 
@@ -29,6 +52,17 @@ Circular Quay was the only top location where December tap volume exceeded Novem
 
 Trip and delay alerts were the most frequent disruption types across all months. Incident alerts had the longest average duration in December at 136 hours, compared to 73 hours in November, suggesting lower-frequency events may still create significant operational impact. Trackwork alerts appeared only in November, consistent with maintenance activity pausing over the Christmas period.
 
+## Dashboard Preview
+
+### Dashboard 1 – Travel Behaviour
+![Travel Behaviour](./screenshots/dashboard-1.png)
+
+### Dashboard 2 – Location Demand
+![Location Demand](./screenshots/dashboard-2.png)
+
+### Dashboard 3 – Service Disruptions
+![Service Disruptions](./screenshots/dashboard-3.png)
+
 ## Data Quality Notes
 
 - The December dataset had 22,425 rows (~13%) missing the `tap` direction column. These rows were retained for volume analysis but excluded from any directional analysis. A Python CSV parser was used to standardise the file structure before loading.
@@ -36,17 +70,13 @@ Trip and delay alerts were the most frequent disruption types across all months.
 - Time values of `-1` were present in both datasets and excluded from all time-based analysis.
 - Late night time slots (00:00–04:45) show extreme percentage changes due to near-zero November volumes amplified by New Year's Eve activity. These are noted as data anomalies, not findings.
 
-## SQL Techniques Demonstrated
+## Tech Stack
 
-- Common Table Expressions (CTEs) for multi-period comparisons
-- Window functions (`ROW_NUMBER() OVER PARTITION BY`) for per-location peak time analysis
-- Aggregate functions (`SUM`, `COUNT`, `AVG`) with `GROUP BY`
-- Date and time extraction (`EXTRACT(DOW...)`, `TO_DATE()`, `EXTRACT(EPOCH...)`)
-- Type casting (`::numeric`, `::date`)
-- `FULL OUTER JOIN` for cross-period location comparisons
-- Multi-condition filtering and `CASE` statements for day type segmentation
+- PostgreSQL
+- Tableau
+- Python
 
-## Project Structure
+## Source Code & Files
 
 - [`SQL1_setup.sql`](./SQL1_setup.sql) - Table creation, CSV loading, and data preparation
 - [`peak_demand_seasonal_shift.sql`](./peak_demand_seasonal_shift.sql) - Peak demand by time, mode, and day type
@@ -56,10 +86,12 @@ Trip and delay alerts were the most frequent disruption types across all months.
 ## Skills Demonstrated
 
 - SQL data cleaning and transformation
-- PostgreSQL querying and aggregation
-- CTEs, joins, window functions, and date/time extraction
+- PostgreSQL querying, aggregation, and multi-table joins
+- Common Table Expressions (CTEs)
+- Window functions and analytical queries
 - Tableau dashboard development
 - Transport demand and disruption analysis
+- Data storytelling and insight communication
 
 ## Limitations
 
