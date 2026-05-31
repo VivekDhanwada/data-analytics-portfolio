@@ -2,9 +2,29 @@
 
 Exploratory analysis of customer retention patterns and revenue trends across a 100,000-row synthetic Amazon e-commerce dataset using Tableau.
 
+**Key Result:** Retention remained consistently high (~86%) across product categories, price tiers, and payment methods, while discounts showed no meaningful relationship with repeat purchasing behaviour.
+
 ## Overview
 
 An exploratory analysis of a synthetic Amazon e-commerce dataset (100,000 rows, 20 columns) built across three Tableau dashboards. The project investigates customer retention patterns and examines revenue performance across five years (2020–2024).
+
+## Data & Methodology
+
+### Data Sources
+- Synthetic Amazon e-commerce dataset
+- 100,000 customer transaction records
+- 20 variables covering orders, discounts, products, payments, and revenue
+
+### Data Preparation
+- Validated customer retention calculations across first and repeat purchases
+- Created retention metrics by discount status, product category, price tier, and payment method
+- Aggregated revenue trends across months and years
+- Built three Tableau dashboards to answer specific business questions
+
+### Dataset Scope
+- Five-year period (2020–2024)
+- Customer retention and purchasing behaviour
+- Revenue performance and seasonality analysis
 
 ## Business Questions
 
@@ -23,13 +43,29 @@ Retention holds at ~86% regardless of product category, price tier, or payment m
 **Dashboard 3 - Temporal Business Performance**
 Total revenue of $91.8M is stable year-on-year. A consistent February revenue dip (~9.4% below monthly average) appears across all five years, suggesting a recurring seasonal demand pattern.
 
+## Dashboard Preview
+
+### Dashboard 1 – Impact of Discount on Customer Retention
+![Discount and Retention](./screenshots/dashboard-1.png)
+
+### Dashboard 2 – Retention Across Key Segments
+![Retention Segments](./screenshots/dashboard-2.png)
+
+### Dashboard 3 – Temporal Business Performance
+![Revenue Trends](./screenshots/dashboard-3.png)
+
+## Tech Stack
+
+- Tableau
+
 ## Skills Demonstrated
 
 - Tableau dashboard development
-- Customer retention and revenue analysis
-- Exploratory data analysis using a large synthetic dataset
-- Business question framing and insight communication
-- Segment comparison across discounts, product categories, price tiers, and payment methods
+- Customer retention analysis
+- Revenue and seasonality analysis
+- Business-focused exploratory data analysis
+- Segment comparison and performance evaluation
+- Data storytelling and insight communication
 
 ## Limitations
 
@@ -37,7 +73,7 @@ Total revenue of $91.8M is stable year-on-year. A consistent February revenue di
 - Factors outside the dataset (customer service, delivery experience) may better explain retention consistency
 - Dataset is synthetic, so patterns may not reflect real Amazon behaviour
 
-## Files
+## Source Code & Files
 
 - `CustomerRetentionRevenueAnalysis.twbx` - Tableau workbook with all three dashboards
 
