@@ -16,6 +16,6 @@ A collection of data analytics projects covering business intelligence, explorat
 
 ## About
 
-Business Analytics graduate from Macquarie University. This portfolio demonstrates work across exploratory analysis, dashboard development, operational reporting, and applied business insights using real and synthetic datasets.
+Data Analyst with a Master of Business Analytics from Macquarie University. This portfolio demonstrates work across exploratory analysis, operational reporting, dashboard development, data engineering, and commercial analytics using real-world datasets spanning transport, energy, retail, and sports.
 
 **Contact:** vivekchinmay@gmail.com | [LinkedIn](https://www.linkedin.com/in/vivek-dhanwada/) | [Portfolio](https://vivekdhanwada.github.io)
