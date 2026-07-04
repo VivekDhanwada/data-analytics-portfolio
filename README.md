@@ -11,7 +11,8 @@ A collection of data analytics projects covering business intelligence, explorat
 | 03 | [NSW Opal Card Tap-On/Tap-Off Analysis](./03-nsw-opal-card/) | PostgreSQL, Tableau, SQL | Complete |
 | 04 | [Customer Retention & Revenue Analysis](https://public.tableau.com/shared/2RJJMHJR9) | Tableau | Complete |
 | 05 | [COVID-19 Impact on Digital Learning](./05-covid-digital-learning/) | R, ggplot2 | Complete |
-| 06 | [Spain Euro 2024 — A Tactical Analysis](./spain-euro-2024/) | Python, API, pandas, Matplotlib, Tableau | Complete |
+| 06 | [Spain Euro 2024 — A Tactical Analysis](./06-spain-euro-2024/) | Python, API, pandas, Tableau | Complete |
+| 07 | [Customer Value & Promotion Effectiveness Analysis](./07-customer-value-promotion-analysis/) | Python, BigQuery, SQL, Power BI | In Progress |
 
 ## About
 

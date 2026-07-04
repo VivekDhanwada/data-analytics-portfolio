@@ -1,0 +1,59 @@
+2026-07-05 00:44:11,295 — INFO — Starting ingestion pipeline
+2026-07-05 00:44:12,395 — WARNING — No project ID could be determined. Consider running `gcloud config set project` or setting the GOOGLE_CLOUD_PROJECT environment variable
+2026-07-05 00:44:12,395 — INFO — --- Processing: campaign_desc ---
+2026-07-05 00:44:12,395 — INFO — File found: campaign_desc
+2026-07-05 00:44:12,410 — INFO — Loaded 30 rows from campaign_desc.csv
+2026-07-05 00:44:12,410 — INFO — Schema valid: campaign_desc
+2026-07-05 00:44:12,410 — INFO — No nulls found: campaign_desc
+2026-07-05 00:44:12,411 — INFO — No duplicates found: campaign_desc
+2026-07-05 00:44:19,239 — INFO — Loaded 30 rows into dunnhumby-retail-analytics.raw.campaign_desc
+2026-07-05 00:44:19,240 — INFO — --- Processing: campaign_table ---
+2026-07-05 00:44:19,240 — INFO — File found: campaign_table
+2026-07-05 00:44:19,249 — INFO — Loaded 7,208 rows from campaign_table.csv
+2026-07-05 00:44:19,249 — INFO — Schema valid: campaign_table
+2026-07-05 00:44:19,251 — INFO — No nulls found: campaign_table
+2026-07-05 00:44:19,253 — INFO — No duplicates found: campaign_table
+2026-07-05 00:44:22,978 — INFO — Loaded 7,208 rows into dunnhumby-retail-analytics.raw.campaign_table
+2026-07-05 00:44:22,979 — INFO — --- Processing: causal_data ---
+2026-07-05 00:44:22,979 — INFO — File found: causal_data
+2026-07-05 00:44:29,111 — INFO — Loaded 36,786,524 rows from causal_data.csv
+2026-07-05 00:44:29,112 — INFO — Schema valid: causal_data
+2026-07-05 00:44:30,891 — INFO — No nulls found: causal_data
+2026-07-05 00:44:36,803 — WARNING — DUPLICATES in causal_data: 15245 rows on key ['PRODUCT_ID', 'STORE_ID', 'WEEK_NO']
+2026-07-05 00:45:19,429 — INFO — Loaded 36,786,524 rows into dunnhumby-retail-analytics.raw.causal_data
+2026-07-05 00:45:19,431 — INFO — --- Processing: coupon_redempt ---
+2026-07-05 00:45:19,431 — INFO — File found: coupon_redempt
+2026-07-05 00:45:19,442 — INFO — Loaded 2,318 rows from coupon_redempt.csv
+2026-07-05 00:45:19,442 — INFO — Schema valid: coupon_redempt
+2026-07-05 00:45:19,444 — INFO — No nulls found: coupon_redempt
+2026-07-05 00:45:19,446 — WARNING — DUPLICATES in coupon_redempt: 14 rows on key ['household_key', 'DAY', 'COUPON_UPC']
+2026-07-05 00:45:23,989 — INFO — Loaded 2,318 rows into dunnhumby-retail-analytics.raw.coupon_redempt
+2026-07-05 00:45:23,990 — INFO — --- Processing: coupon ---
+2026-07-05 00:45:23,990 — INFO — File found: coupon
+2026-07-05 00:45:24,027 — INFO — Loaded 124,548 rows from coupon.csv
+2026-07-05 00:45:24,027 — INFO — Schema valid: coupon
+2026-07-05 00:45:24,027 — INFO — No nulls found: coupon
+2026-07-05 00:45:24,035 — WARNING — DUPLICATES in coupon: 12402 rows on key ['COUPON_UPC', 'PRODUCT_ID']
+2026-07-05 00:45:27,992 — INFO — Loaded 124,548 rows into dunnhumby-retail-analytics.raw.coupon
+2026-07-05 00:45:27,992 — INFO — --- Processing: hh_demographic ---
+2026-07-05 00:45:27,993 — INFO — File found: hh_demographic
+2026-07-05 00:45:28,316 — INFO — Loaded 801 rows from hh_demographic.csv
+2026-07-05 00:45:28,316 — INFO — Schema valid: hh_demographic
+2026-07-05 00:45:28,316 — INFO — No nulls found: hh_demographic
+2026-07-05 00:45:28,317 — INFO — No duplicates found: hh_demographic
+2026-07-05 00:45:32,746 — INFO — Loaded 801 rows into dunnhumby-retail-analytics.raw.hh_demographic
+2026-07-05 00:45:32,747 — INFO — --- Processing: product ---
+2026-07-05 00:45:32,748 — INFO — File found: product
+2026-07-05 00:45:32,820 — INFO — Loaded 92,353 rows from product.csv
+2026-07-05 00:45:32,821 — INFO — Schema valid: product
+2026-07-05 00:45:32,828 — INFO — No nulls found: product
+2026-07-05 00:45:32,830 — INFO — No duplicates found: product
+2026-07-05 00:45:36,559 — INFO — Loaded 92,353 rows into dunnhumby-retail-analytics.raw.product
+2026-07-05 00:45:36,559 — INFO — --- Processing: transaction_data ---
+2026-07-05 00:45:36,560 — INFO — File found: transaction_data
+2026-07-05 00:45:37,413 — INFO — Loaded 2,595,732 rows from transaction_data.csv
+2026-07-05 00:45:37,413 — INFO — Schema valid: transaction_data
+2026-07-05 00:45:37,430 — INFO — No nulls found: transaction_data
+2026-07-05 00:45:37,567 — INFO — No duplicates found: transaction_data
+2026-07-05 00:45:54,100 — INFO — Loaded 2,595,732 rows into dunnhumby-retail-analytics.raw.transaction_data
+2026-07-05 00:45:54,101 — INFO — Pipeline complete. Success: 8 | Failed: 0
