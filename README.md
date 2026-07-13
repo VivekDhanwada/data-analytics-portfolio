@@ -13,9 +13,10 @@ A collection of data analytics projects covering business intelligence, explorat
 | 05 | [COVID-19 Impact on Digital Learning](./05-covid-digital-learning/) | R, ggplot2 | Complete |
 | 06 | [Spain Euro 2024 — A Tactical Analysis](./06-spain-euro-2024/) | Python, API, pandas, Tableau | Complete |
 | 07 | [Customer Value & Promotion Effectiveness Analysis](./07-customer-value-promotion-analysis/) | Python, BigQuery, SQL, Power BI | In Progress |
+| 08 | [Spotify Snowflake Pipeline](./08-spotify-snowflake-pipeline/) | Python, AWS, Snowflake, Power BI | In Progress |
 
 ## About
 
-Data Analyst with a Master of Business Analytics from Macquarie University. This portfolio demonstrates work across exploratory analysis, operational reporting, dashboard development, data engineering, and commercial analytics using real-world datasets spanning transport, energy, retail, and sports.
+Data Analyst with a Master of Business Analytics from Macquarie University, Microsoft Certified: Power BI Data Analyst Associate (PL-300). This repository contains detailed project files across data engineering, cloud warehousing, dimensional modelling, SQL, Python, and dashboard development — from raw data ingestion through to business-ready reporting. Each project folder includes the full pipeline: source data, transformation logic, and final analysis or dashboard output.
 
 **Contact:** vivekchinmay@gmail.com | [LinkedIn](https://www.linkedin.com/in/vivek-dhanwada/) | [Portfolio](https://vivekdhanwada.github.io)
