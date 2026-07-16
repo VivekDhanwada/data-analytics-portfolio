@@ -17,13 +17,13 @@ This project is scoped as a data engineering and pipeline automation exercise ra
 
 ### Pipeline Architecture
 
-**1. Extract** (`extract.py` / Lambda #1, `spotify_api_data_extract`)
+**1. Extract** (`extract_lambda.py`, Lambda #1: `spotify_api_data_extract`)
 - Authenticates via a stored refresh token for server-to-server access, with no browser interaction needed after initial bootstrap
 - Fetches playlist tracks from the Spotify API
 - Writes raw JSON to `s3://etl-pipeline-spotify-vivek/raw_data/to_processed/`
 - Triggered daily via EventBridge
 
-**2. Transform** (Lambda #2, `spotify_transformation_load_function`)
+**2. Transform** (`transform_lambda.py`, Lambda #2: `spotify_transformation_load_function`)
 - Triggered automatically by an S3 event notification when new raw JSON lands
 - Parses raw JSON into three normalised datasets: albums, artists, songs
 - Deduplicates albums and artists within each batch
@@ -49,17 +49,22 @@ This project is scoped as a data engineering and pipeline automation exercise ra
 
 ## Project Structure
 
-- [`extract.py`](./extract.py) - Local development version of the Extract Lambda: Spotify OAuth, playlist fetch, CSV export
-- [`refresh_token.py`](./refresh_token.py) - One-time OAuth bootstrap script to generate the stored refresh token
-- [`transform_lambda.py`](./transform_lambda.py) - Transform Lambda: JSON parsing, album/artist/song extraction, deduplication, S3 upload, raw file archiving
-- [`setup.sql`](./setup.sql) - Snowflake database, schema, and table creation
-- [`s3_connection.sql`](./s3_connection.sql) - Storage Integration and stage setup (S3 to Snowflake IAM trust)
-- [`snowpipe.sql`](./snowpipe.sql) - Snowpipe creation for automated ingestion
-- [`final_view.sql`](./final_view.sql) - Deduplicated views for data quality
+**Lambda (`lambda/`)**
+- [`extract.py`](./lambda/extract.py) - Local development/testing version using interactive OAuth (kept to document the dev process)
+- [`extract_lambda.py`](./lambda/extract_lambda.py) - Deployed Lambda #1: refresh-token authentication, playlist fetch, raw JSON upload to S3
+- [`refresh_token.py`](./lambda/refresh_token.py) - One-time OAuth bootstrap script to generate the stored refresh token
+- [`transform_lambda.py`](./lambda/transform_lambda.py) - Deployed Lambda #2: JSON parsing, album/artist/song extraction, deduplication, S3 upload, raw file archiving
+
+**Snowflake SQL (`snowflake_sql/`)**
+- [`setup.sql`](./snowflake_sql/setup.sql) - Database, schema, and table creation
+- [`s3_connection.sql`](./snowflake_sql/s3_connection.sql) - Storage Integration and stage setup (S3 to Snowflake IAM trust)
+- [`snowpipe.sql`](./snowflake_sql/snowpipe.sql) - Snowpipe creation for automated ingestion
+- [`final_view.sql`](./snowflake_sql/final_view.sql) - Deduplicated views for data quality
 
 ## Tech Stack
 
 - Python (`spotipy`, `boto3`, `pandas`), for extraction and transformation logic
+- SQL, for Snowflake schema design, storage integration, and deduplication logic
 - AWS Lambda, serverless compute for Extract and Transform stages
 - AWS S3, raw and transformed data staging
 - AWS IAM, role-based trust for Snowflake's Storage Integration

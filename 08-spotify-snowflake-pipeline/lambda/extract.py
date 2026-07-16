@@ -1,3 +1,7 @@
+# NOTE: Local development/testing version using interactive OAuth.
+# The deployed Lambda #1 (extract_lambda.py) uses a refresh-token flow instead
+# for unattended server-to-server execution. Kept here to document the dev process.
+
 import os
 from dotenv import load_dotenv
 import spotipy
