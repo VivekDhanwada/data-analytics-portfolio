@@ -10,4 +10,8 @@ __pycache__/
 
 # macOS
 .DS_Store
+
+# Lambda layer build artifacts
+python/
+spotify_layer.zip
 .cache
