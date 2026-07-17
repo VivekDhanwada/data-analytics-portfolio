@@ -1,6 +1,6 @@
 # Spotify Snowflake Pipeline
 
-An end-to-end ELT pipeline extracting listening data from the Spotify API, loading it through AWS into Snowflake with fully automated ingestion via Snowpipe.
+An end-to-end ETL pipeline extracting listening data from the Spotify API, loading it through AWS into Snowflake with fully automated ingestion via Snowpipe.
 
 **Key Result:** Built a fully automated Extract-Transform-Load pipeline using AWS Lambda, S3, and Snowflake Snowpipe. New playlist data flows from the Spotify API into query-ready Snowflake tables with zero manual intervention, verified end-to-end by triggering a live run and confirming row counts increased purely through automated ingestion.
 
@@ -10,7 +10,7 @@ An end-to-end ELT pipeline extracting listening data from the Spotify API, loadi
 
 ![Pipeline Architecture](./images/architecture.png)
 
-This project builds a serverless ELT pipeline: a scheduled AWS Lambda function extracts playlist data from the Spotify API via OAuth, a second Lambda transforms the raw JSON into structured album, artist, and song datasets, and Snowflake's Snowpipe automatically ingests the transformed files into Snowflake tables as soon as they land in S3, with no manual `COPY INTO` required after initial setup.
+This project builds a serverless ETL pipeline: a scheduled AWS Lambda function extracts playlist data from the Spotify API via OAuth, a second Lambda transforms the raw JSON into structured album, artist, and song datasets, and Snowflake's Snowpipe automatically ingests the transformed files into Snowflake tables as soon as they land in S3, with no manual `COPY INTO` required after initial setup.
 
 This project is scoped as a data engineering and pipeline automation exercise rather than an analytics project. The underlying dataset, a personal Spotify playlist, doesn't have the scale or business-question depth to justify a BI or dashboard layer, so the project's scope ends at Load, with a data-quality layer (deduplicated views) added on top of the raw tables.
 
