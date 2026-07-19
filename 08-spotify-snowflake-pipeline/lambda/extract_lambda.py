@@ -27,18 +27,28 @@ def lambda_handler(event, context):
     playlist_link = "https://open.spotify.com/playlist/5e6n2yhtZxQYhMQbx8ec42"
     playlist_URI = playlist_link.split("/")[-1].split("?")[0]
 
-    data = sp.playlist_items(playlist_URI)
+    results = sp.playlist_items(playlist_URI)
+    all_items = results['items']
+
+    while results['next']:
+        results = sp.next(results)
+        all_items.extend(results['items'])
+
+    data = {
+        'items': all_items,
+        'total': len(all_items)
+    }
 
     s3_client = boto3.client('s3')
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
 
     s3_client.put_object(
-    Bucket="etl-pipeline-spotify-vivek",
-    Key=f"raw_data/to_processed/spotify_data_{timestamp}.json",
-    Body=json.dumps(data)
+        Bucket="etl-pipeline-spotify-vivek",
+        Key=f"raw_data/to_processed/spotify_data_{timestamp}.json",
+        Body=json.dumps(data)
     )
 
     return {
         'statusCode': 200,
-        'body': f"Fetched and uploaded {len(data['items'])} items to S3"
+        'body': f"Fetched and uploaded {len(all_items)} items to S3"
     }

@@ -47,6 +47,14 @@ This project is scoped as a data engineering and pipeline automation exercise ra
 
 ## Key Findings
 
-**Pipeline verification:** Triggered a live end-to-end test by manually invoking the Extract Lambda. Without any manual intervention, row counts increased automatically as new data flowed through the full chain: `tblAlbum` 20 to 32, `tblArtist` 2 to 3, `tblSongs` 127 to 177, confirming the automated Load layer works as designed.
+**Full automation confirmed:** Triggered a live end-to-end test by manually invoking the Extract Lambda. Without any manual intervention, data flowed automatically through the full chain, extract to transform to load, confirming the automated pipeline works as designed.
 
-**Data quality:** Raw ingestion revealed real duplicate accumulation. For example, the artist table contained 3 rows despite only 1 unique artist appearing across the entire playlist. This is expected behaviour given Snowpipe's `COPY INTO`-o
+**Two real data quality issues found and fixed during verification:**
+
+The Spotify API paginates results, and the original extract logic only captured the first page, silently truncating any playlist beyond that limit. Fixed by looping through all available pages before writing to S3.
+
+Separately, the Snowpipe `COPY INTO` definitions had no explicit file format specified, causing Snowflake to fall back to default CSV parsing rules. Track or album titles containing both a comma and an embedded quotation mark were misparsed and silently dropped, since `ON_ERROR = 'CONTINUE'` skips failed rows without raising a visible error. Fixed by defining an explicit file format with correct field enclosure handling.
+
+**Deduplication logic validated on a live case:** Added a song to the source playlist as a test case, then triggered repeated pipeline runs. The song appeared multiple times in the raw table, a direct consequence of Snowpipe's append-only `COPY INTO` model, while the corresponding deduplication view consistently collapsed it to a single row, confirming the dedup logic works correctly on real data, not just a clean hypothetical.
+
+Following successful verification, the EventBridge daily automation trigger was disabled to prevent further unattended runs.
