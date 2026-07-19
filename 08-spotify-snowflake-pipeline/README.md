@@ -2,7 +2,7 @@
 
 An end-to-end ETL pipeline extracting listening data from the Spotify API, loading it through AWS into Snowflake with fully automated ingestion via Snowpipe.
 
-**Key Result:** Built a fully automated Extract-Transform-Load pipeline using AWS Lambda, S3, and Snowflake Snowpipe. New playlist data flows from the Spotify API into query-ready Snowflake tables via a daily scheduled trigger, with zero manual intervention required from extract through to load, verified by simulating a scheduled run and confirming automated ingestion end-to-end.
+**Key Result:** Built a fully automated Extract-Transform-Load pipeline using AWS Lambda, S3, and Snowflake Snowpipe. The pipeline ran unattended for several consecutive days via a daily EventBridge trigger, with new playlist data flowing from the Spotify API into query-ready Snowflake tables and zero manual intervention required from extract through to load.
 
 ## Overview
 
@@ -47,7 +47,7 @@ This project is scoped as a data engineering and pipeline automation exercise ra
 
 ## Key Findings
 
-**Full automation confirmed:** The pipeline runs automatically end-to-end via a daily EventBridge trigger. To verify this, the Extract Lambda was manually invoked as a stand-in for a scheduled run; from that point on, data flowed through transform and load with no further intervention, confirming the automated chain works as designed.
+**Full automation confirmed:** The pipeline was designed to run automatically once per day via EventBridge, with no manual steps required from extract through to load. This ran successfully unattended for several consecutive days, with row counts increasing purely through scheduled runs. During later verification, the Extract Lambda was manually invoked a few times purely to speed up testing of specific bug fixes without waiting for the next scheduled run; this was a debugging step, not what confirmed automation, since the daily unattended runs already had.
 
 **Two real data quality issues found and fixed during verification:**
 
