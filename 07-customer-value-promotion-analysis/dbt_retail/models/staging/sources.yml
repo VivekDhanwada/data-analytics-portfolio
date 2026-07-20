@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: raw
+    database: dunnhumby-retail-analytics
+    schema: raw
+    tables:
+      - name: campaign_desc
+      - name: campaign_table
+      - name: causal_data
+      - name: coupon
+      - name: coupon_redempt
+      - name: hh_demographic
+      - name: product
+      - name: transaction_data
