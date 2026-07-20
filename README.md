@@ -12,7 +12,7 @@ A collection of data analytics projects covering business intelligence, explorat
 | 04 | [Customer Retention & Revenue Analysis](https://public.tableau.com/shared/2RJJMHJR9) | Tableau | Complete |
 | 05 | [COVID-19 Impact on Digital Learning](./05-covid-digital-learning/) | R, ggplot2 | Complete |
 | 06 | [Spain Euro 2024 — A Tactical Analysis](./06-spain-euro-2024/) | Python, API, pandas, Tableau | Complete |
-| 07 | [Customer Value & Promotion Effectiveness Analysis](./07-customer-value-promotion-analysis/) | Python, BigQuery, SQL, Power BI | In Progress |
+| 07 | [Customer Value & Promotion Effectiveness Analysis](./07-customer-value-promotion-analysis/) | Python, BigQuery, dbt, GitHub Actions, Power BI | In Progress |
 | 08 | [Spotify Snowflake Pipeline](./08-spotify-snowflake-pipeline/) | Python, AWS, Snowflake | Complete |
 
 ## About

@@ -8,7 +8,7 @@ A commercial retail analytics project using Dunnhumby "The Complete Journey" dat
 
 This project analyses two years of real retail transaction data covering household demographics, purchase history, coupon redemptions, and campaign exposure. The analysis identifies which customer segments generate the greatest post-promotion revenue lift and which segments churn regardless of promotional activity, producing a data-driven recommendation on where to increase and reduce promotional investment.
 
-The project follows a full modern analytics stack: Python ingestion pipeline, cloud data warehousing in BigQuery, SQL transformations with star schema modelling, and an interactive Power BI dashboard with DAX measures.
+The project follows a full modern analytics stack: Python ingestion pipeline, cloud data warehousing in BigQuery, dbt transformation layers with automated testing, and an interactive Power BI dashboard with DAX measures.
 
 ## Analytical Questions
 
@@ -43,8 +43,57 @@ The project follows a full modern analytics stack: Python ingestion pipeline, cl
 
 - Python (ingestion and validation pipeline)
 - Google BigQuery (cloud data warehouse)
+- dbt Core (transformation layer -- staging, intermediate, and marts models with automated testing)
 - SQL (CTEs, window functions, star schema modelling)
+- GitHub Actions (CI -- automated dbt test runs on every push)
 - Power Query (light shaping in Power BI)
 - Power BI and DAX (interactive dashboard)
 
 ## Project Structure
+```
+07-customer-value-promotion-analysis/
+├── data/
+│   └── raw/                    # Raw CSVs — gitignored
+├── ingestion/
+│   └── ingest.py               # Python ingestion and validation script
+├── dbt_retail/
+│   ├── models/
+│   │   ├── staging/            # One-to-one with raw tables, light cleaning
+│   │   ├── intermediate/       # Joins and business logic
+│   │   └── marts/              # Final tables for Power BI
+│   ├── tests/                  # dbt data quality tests
+│   └── dbt_project.yml         # dbt project configuration
+├── docs/                       # Ingestion logs and supporting documentation
+└── README.md
+```
+
+## Skills Demonstrated
+
+- ETL pipeline development
+- Cloud data warehousing (BigQuery)
+- dbt transformation layer -- staging, intermediate, and marts
+- Automated data quality testing with dbt test
+- CI pipeline with GitHub Actions
+- SQL at scale -- CTEs, window functions, star schema
+- Power Query transformations
+- DAX measure development
+- Customer segmentation and cohort analysis
+- Promotion effectiveness analysis
+- Churn analysis
+- Commercial data storytelling with a business recommendation
+
+## Status
+
+In Progress
+
+## Limitations
+
+*To be completed once analysis is finalised.*
+
+## Dashboard Preview
+
+*To be added once Power BI dashboard is complete.*
+
+## Business Recommendation
+
+*To be added once analysis is finalised.*
