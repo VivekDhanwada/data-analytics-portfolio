@@ -3,8 +3,12 @@ name: dbt CI
 on:
   push:
     branches: [main]
+    paths:
+      - '07-customer-value-promotion-analysis/**'
   pull_request:
     branches: [main]
+    paths:
+      - '07-customer-value-promotion-analysis/**'
 
 jobs:
   dbt-test:
