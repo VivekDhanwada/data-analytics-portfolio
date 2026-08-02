@@ -104,6 +104,7 @@ The repository follows a layered analytics workflow from ingestion through trans
 - Only 801 of 2,497 households have demographic records. Churn analysis by age and income is limited to this subset.
 - Zero churn recorded for age groups 45-64, likely reflecting sparse demographic coverage rather than genuine zero churn in those segments.
 - Coupon effectiveness analysis is based on 2,318 redemption events -- a small sample relative to 2.6 million total transactions. Near-universal promotion coverage (via display and mailer) limits the non-promoted comparison group to 18 customers.
+- The dashboard coupon redemption rate of 0.75% reflects transaction line items associated with a coupon redemption, not unique redemption events. 2,318 redemption events across 2,597,664 transaction line items equates to approximately 0.09% at the event level. The higher figure results from one redemption joining to multiple line items within the same basket.
 - Basket value differences between promoted and non-promoted customers may reflect self-selection rather than causal promotion effects. A controlled experiment would be required to confirm causality.
 - The 8-week post-promotion window is a pragmatic choice. Different window lengths may produce different results.
 - Promotion type chart in the dashboard does not support cross-filtering due to DAX measure architecture.
