@@ -58,7 +58,8 @@ The project follows a full modern analytics stack: Python ingestion pipeline, cl
 
 The repository follows a layered analytics workflow from ingestion through transformation to reporting.
 
-07-customer-value-promotion-analysis/
+```
+07-retail-promotion-churn-analysis/
 ├── data/
 │ └── raw/ # Raw CSVs — gitignored
 ├── ingestion/
@@ -75,7 +76,7 @@ The repository follows a layered analytics workflow from ingestion through trans
 ├── PowerBI/ # Dashboard screenshots
 ├── docs/ # Ingestion logs and supporting documentation
 └── README.md
-
+```
 
 ## Skills Demonstrated
 
