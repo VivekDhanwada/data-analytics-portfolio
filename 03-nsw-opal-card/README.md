@@ -1,8 +1,10 @@
 # NSW Opal Card Tap-On/Tap-Off Analysis
 
+Transport planners rely on aggregate ridership figures to guide service levels, but aggregate numbers can mask very different underlying shifts. A 50% drop in total weekday volume and an 80% collapse in the 8:15am morning peak look like the same story at different scales, but they imply very different planning responses, one is a general decline, the other is a structural disappearance of the commuter peak itself.
+
 Exploratory analysis of real NSW Transport Opal card tap-on/tap-off data using PostgreSQL and Tableau, comparing travel behaviour between a standard November week and the Christmas/New Year period.
 
-**Key Result:** Weekday travel demand fell by 50% during the Christmas/New Year period, while ferry usage increased and Circular Quay became one of the busiest locations in the network, indicating a shift from commuter travel to leisure-focused travel behaviour.
+**Key Result:** Weekday travel demand fell by 50% during the Christmas/New Year period, with the 8:15am morning peak dropping even more sharply at 80%. Ferry usage increased and Circular Quay became one of the busiest locations in the network, indicating a shift from commuter travel to leisure-focused travel behaviour.
 
 ## Overview
 
