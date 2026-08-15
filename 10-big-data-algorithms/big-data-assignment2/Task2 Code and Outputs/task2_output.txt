@@ -1,0 +1,54 @@
+Algorithm: Simple BBS with RTreeNode
+id=14825, x=100.0, y=331.19
+id=50171, x=100.01, y=424.06
+id=88124, x=412.94, y=500.0
+id=105741, x=100.51, y=499.92
+id=129582, x=100.03, y=497.73
+id=216223, x=100.02, y=495.19
+id=225160, x=233.55, y=499.99
+id=242162, x=124.91, y=499.98
+
+Total runtime: 0.174235 seconds
+Average time per skyline point: 0.02177942 seconds
+=======================================
+Algorithm: Sequential Scan
+id=14825, x=100.0, y=331.19
+id=50171, x=100.01, y=424.06
+id=88124, x=412.94, y=500.0
+id=105741, x=100.51, y=499.92
+id=129582, x=100.03, y=497.73
+id=216223, x=100.02, y=495.19
+id=225160, x=233.55, y=499.99
+id=242162, x=124.91, y=499.98
+
+Total runtime: 5.340088 seconds
+Average time per skyline point: 0.66751096 seconds
+
+=======================================
+Algorithm: BBS (Grouped RTreeNode)
+id=14825, x=100.0, y=331.19
+id=50171, x=100.01, y=424.06
+id=88124, x=412.94, y=500.0
+id=105741, x=100.51, y=499.92
+id=129582, x=100.03, y=497.73
+id=216223, x=100.02, y=495.19
+id=225160, x=233.55, y=499.99
+id=242162, x=124.91, y=499.98
+
+Total runtime: 0.188147 seconds
+Average time per skyline point: 0.02351838 seconds
+
+=======================================
+Algorithm: BBS with Divide and Conquer (by X)
+id=14825, x=100.0, y=331.19
+id=50171, x=100.01, y=424.06
+id=216223, x=100.02, y=495.19
+id=129582, x=100.03, y=497.73
+id=105741, x=100.51, y=499.92
+id=242162, x=124.91, y=499.98
+id=225160, x=233.55, y=499.99
+id=88124, x=412.94, y=500.0
+
+Total runtime: 0.233673 seconds
+Average time per skyline point: 0.02920917 seconds
+

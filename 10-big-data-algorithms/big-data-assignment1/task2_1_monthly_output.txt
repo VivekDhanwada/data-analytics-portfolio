@@ -1,0 +1,96 @@
+["Espresso","10"]	252.72
+["Espresso","11"]	63.18
+["Espresso","12"]	252.72
+["Espresso","2"]	315.9
+["Espresso","3"]	216.0
+["Espresso","4"]	96.0
+["Espresso","5"]	161.14
+["Espresso","6"]	230.2
+["Espresso","7"]	273.28
+["Espresso","8"]	253.68
+["Espresso","9"]	217.44
+["Hot Chocolate","1"]	536.4
+["Hot Chocolate","10"]	2074.08
+["Hot Chocolate","11"]	1323.12
+["Hot Chocolate","12"]	929.76
+["Hot Chocolate","2"]	1037.04
+["Hot Chocolate","3"]	774.0
+["Hot Chocolate","4"]	386.02
+["Hot Chocolate","5"]	490.36
+["Hot Chocolate","6"]	528.08
+["Hot Chocolate","7"]	361.02
+["Hot Chocolate","8"]	196.92
+["Hot Chocolate","9"]	366.9
+["Latte","1"]	1466.16
+["Latte","10"]	4291.2
+["Americano","3"]	924.8
+["Americano","4"]	941.94
+["Americano","5"]	1116.8
+["Americano","6"]	390.88
+["Americano","7"]	858.12
+["Americano","8"]	851.74
+["Americano","9"]	739.58
+["Americano with Milk","4"]	1267.74
+["Americano with Milk","5"]	1772.28
+["Americano with Milk","6"]	2166.12
+["Americano with Milk","7"]	1863.8
+["Americano with Milk","8"]	2010.24
+["Americano with Milk","9"]	2930.14
+["Americano","1"]	649.0
+["Americano","10"]	1142.24
+["Americano","11"]	649.0
+["Americano","12"]	700.92
+["Americano","2"]	2596.0
+["Latte","6"]	1886.0
+["Latte","7"]	1857.52
+["Latte","8"]	1903.56
+["Latte","9"]	3114.48
+["Latte","11"]	2431.68
+["Latte","12"]	1680.72
+["Latte","2"]	1537.68
+["Latte","3"]	1354.5
+["Latte","4"]	1034.12
+["Latte","5"]	1886.0
+["Cocoa","1"]	500.64
+["Cocoa","10"]	1144.32
+["Cocoa","11"]	1251.6
+["Cocoa","12"]	750.96
+["Cocoa","2"]	1788.0
+["Cocoa","3"]	232.2
+["Cocoa","4"]	153.82
+["Cocoa","5"]	301.76
+["Cocoa","6"]	150.88
+["Cocoa","7"]	300.28
+["Cocoa","8"]	361.02
+["Cocoa","9"]	298.32
+["Cortado","1"]	571.12
+["Cortado","10"]	882.64
+["Americano with Milk","12"]	1759.02
+["Americano with Milk","2"]	2376.22
+["Americano with Milk","3"]	1014.0
+["Cappuccino","1"]	965.52
+["Cappuccino","10"]	1573.44
+["Cappuccino","11"]	929.76
+["Cappuccino","12"]	1358.88
+["Cappuccino","2"]	1644.96
+["Cappuccino","3"]	580.5
+["Cappuccino","4"]	1381.44
+["Cappuccino","5"]	1961.44
+["Cappuccino","6"]	1735.12
+["Cappuccino","7"]	1079.64
+["Cappuccino","8"]	1115.88
+["Cappuccino","9"]	1360.32
+["Americano with Milk","1"]	1604.72
+["Americano with Milk","10"]	2530.52
+["Americano with Milk","11"]	1604.72
+["Cortado","11"]	337.48
+["Cortado","12"]	804.76
+["Cortado","2"]	233.64
+["Cortado","3"]	809.2
+["Cortado","4"]	458.48
+["Cortado","5"]	474.64
+["Cortado","6"]	530.48
+["Cortado","7"]	322.28
+["Cortado","8"]	920.8
+["Cortado","9"]	961.46
+["Espresso","1"]	105.3
