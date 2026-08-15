@@ -1,6 +1,6 @@
 # Data Analytics Portfolio
 
-A collection of data analytics projects covering business intelligence, exploratory analysis, operational reporting, and applied business insights.
+Data analytics portfolio covering data pipeline design, layered transformation modelling, exploratory analysis, cloud computing and business-ready dashboard development, from raw ingestion through tested transformation to insight.
 
 ## Projects
 
