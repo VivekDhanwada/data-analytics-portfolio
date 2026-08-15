@@ -14,9 +14,11 @@ A collection of data analytics projects covering business intelligence, explorat
 | 06 | [Spain Euro 2024 — A Tactical Analysis](./06-spain-euro-2024/) | Python, API, pandas, Tableau | Complete |
 | 07 | [Retail Promotion and Churn Analysis](./07-retail-promotion-churn-analysis/) | Python, BigQuery, dbt, GitHub Actions, Power BI | Complete |
 | 08 | [Spotify Snowflake Pipeline](./08-spotify-snowflake-pipeline/) | Python, AWS, Snowflake | Complete |
+| 09 | [Machine Learning Techniques](./09-machine-learning-techniques/) | Python, scikit-learn, XGBoost | Complete |
+| 10 | [Big Data & Algorithms](./10-big-data-algorithms/) | Python, mrjob, MongoDB | Complete |
 
 ## About
 
-Data Analyst with a Master of Business Analytics from Macquarie University, Microsoft Certified: Power BI Data Analyst Associate (PL-300). This repository contains detailed project files across data engineering, cloud warehousing, dimensional modelling, SQL, Python, and dashboard development — from raw data ingestion through to business-ready reporting. Each project folder includes the full pipeline: source data, transformation logic, and final analysis or dashboard output.
+Data Analyst with a Master of Business Analytics from Macquarie University, Microsoft Certified: Power BI Data Analyst Associate (PL-300). This repository contains detailed project files across data engineering, cloud warehousing, dimensional modelling, machine learning techniques, Big Data algorithms and dashboard development, from raw data ingestion through to business-ready reporting. Each project folder includes the full pipeline: source data, transformation logic, and final analysis or dashboard output.
 
 **Contact:** vivekchinmay@gmail.com | [LinkedIn](https://www.linkedin.com/in/vivek-dhanwada/) | [Portfolio](https://vivekdhanwada.github.io)
