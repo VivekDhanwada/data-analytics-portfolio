@@ -16,6 +16,7 @@ Data analytics portfolio covering data pipeline design, layered transformation m
 | 08 | [Spotify Snowflake Pipeline](./08-spotify-snowflake-pipeline/) | Python, AWS, Snowflake | Complete |
 | 09 | [Machine Learning Techniques](./09-machine-learning-techniques/) | Python, scikit-learn, XGBoost | Complete |
 | 10 | [Big Data & Algorithms](./10-big-data-algorithms/) | Python, mrjob, MongoDB | Complete |
+| 11 | [NSW Fuel Pricing Analysis](./11-nsw-fuel-pricing-analysis/) | Python, AWS (S3, Lambda, Docker), Snowflake, dbt, Airflow, Cube Core/MCP, Power BI | In Progress |
 
 ## About
 
