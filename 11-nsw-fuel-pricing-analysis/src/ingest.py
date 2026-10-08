@@ -51,6 +51,10 @@ def run_ingestion():
     prices = fetch_prices(token)
     stations = fetch_reference_data(token)
 
+    # keep only stations that report at least one real (non-EV) fuel price
+    fuel_station_codes = {p["stationcode"] for p in prices}
+    stations = [s for s in stations if s["code"] in fuel_station_codes]
+
     return prices, stations, today
 
 
