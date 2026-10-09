@@ -115,7 +115,7 @@ This is a deliberate infrastructure decision, not a compromise: it's documented 
 - Data source vetting and governance, evaluated and rejected multiple candidate sources on explicit Terms of Service grounds before selecting an officially licensed government API
 - Python ingestion with OAuth 2.0 client-credentials authentication and credentials kept out of source control
 - Profiling a live source before building on it: null, duplicate, range, freshness and referential checks, plus a manual spot-check against the real-world source
-- *Remaining items TBD as the pipeline is built: cloud landing zone, Iceberg table design, dbt layered modelling, containerised deployment, orchestration*
+- *Remaining items TBD as the pipeline is built: Lambda deployment and scheduling, Iceberg table design, dbt layered modelling, orchestration*
 
 **Analytics Engineering**
 *TBD*
