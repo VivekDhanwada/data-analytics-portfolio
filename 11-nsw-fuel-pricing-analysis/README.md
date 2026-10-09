@@ -6,7 +6,7 @@ A production-grade analytics pipeline built on official NSW Government fuel pric
 
 ## Status
 
-In progress. Built and tested so far: OAuth authentication, ingestion of live prices and station reference data, filtering of non-fuel entries, and a data validation script. Everything else listed under Tech Stack is planned.
+In progress. Built and tested so far: OAuth authentication, ingestion of live prices and station reference data, filtering of non-fuel entries, a data validation script, upload of raw JSON to S3, and a Docker image that runs the same handler locally under the Lambda runtime emulator. Not yet done: deployment to AWS Lambda, the schedule, historical backfill, and everything from Snowflake onward.
 
 ## Executive Summary
 
@@ -37,6 +37,8 @@ The project follows the ADLC (Analytics Development Lifecycle) pattern: raw inge
 
 **First live pull (8 Oct 2026, after filtering):** 9,673 price rows across 2,379 stations (2,315 NSW, 63 ACT, 1 unparsed address) and 9 fuel type codes.
 
+**Landing zone:** raw JSON is written to S3 in Sydney (`ap-southeast-2`) with Hive-style date partitions, for example `raw/prices/dt=2026-10-09/prices.json` and `raw/stations/dt=2026-10-09/stations.json`. A rerun on the same day overwrites that day's file, so a retry cannot create duplicates.
+
 ## Data Validation
 
 The first live pull was profiled before any pipeline was built on top of it (`src/validate.py`).
@@ -60,8 +62,10 @@ The first live pull was profiled before any pipeline was built on top of it (`sr
 ## Tech Stack
 
 **Phase 1 (build/demo, target enterprise stack):**
-- Python (ingestion and validation, built)
-- AWS S3, Lambda, EventBridge Scheduler, Docker (planned)
+- Python, ingestion and validation (built)
+- AWS S3 landing zone with a scoped IAM user (built)
+- Docker image on the AWS Lambda base image, tested locally (built)
+- AWS Lambda and EventBridge Scheduler (planned)
 - Snowflake, Apache Iceberg tables (planned)
 - dbt Core, staging / intermediate / marts (planned)
 - Apache Airflow, orchestration built and demoed separately from day-to-day scheduling (planned; see Architecture)
@@ -93,11 +97,14 @@ This is a deliberate infrastructure decision, not a compromise: it's documented 
 ├── src/
 │   ├── config.py        # API URLs, credentials loading, constants
 │   ├── auth.py          # OAuth token retrieval
-│   ├── ingest.py        # Fetch prices and reference data, filter non-fuel entries, save raw JSON
+│   ├── ingest.py        # Fetch prices and reference data, filter non-fuel entries, save locally, upload to S3
 │   └── validate.py      # Profile the raw pull: nulls, duplicates, ranges, freshness, coordinates
-├── data/                # Local landing zone (gitignored), mirrors future S3 partition structure
+├── data/                # Local landing zone (gitignored), mirrors the S3 partition structure
 ├── dbt/                 # TBD
 ├── docs/                # TBD, screenshots, architecture diagram
+├── Dockerfile           # Lambda container image
+├── requirements.txt
+├── .dockerignore
 ├── .gitignore
 └── README.md
 ```
