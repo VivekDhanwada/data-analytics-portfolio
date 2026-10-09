@@ -11,3 +11,4 @@ PRICES_URL = "https://api.onegov.nsw.gov.au/FuelPriceCheck/v1/fuel/prices"
 REFDATA_URL = "https://api.onegov.nsw.gov.au/FuelCheckRefData/v1/fuel/lovs"
 
 EXCLUDED_BRANDS = {"AGL", "Chargefox", "Evie Networks", ""}
+S3_BUCKET = os.environ.get("S3_BUCKET")

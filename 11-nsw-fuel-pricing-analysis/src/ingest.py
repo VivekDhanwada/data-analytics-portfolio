@@ -2,10 +2,11 @@ import json
 import os
 from datetime import date, datetime
 
+import boto3
 import requests
 
 from auth import get_access_token
-from config import PRICES_URL, REFDATA_URL, API_KEY, EXCLUDED_BRANDS
+from config import PRICES_URL, REFDATA_URL, API_KEY, EXCLUDED_BRANDS, S3_BUCKET
 
 
 def common_headers(token, include_if_modified_since=False):
@@ -44,6 +45,17 @@ def save_local(data, folder, filename):
     print(f"Saved {len(data)} records to {path}")
 
 
+def upload_s3(data, key):
+    s3 = boto3.client("s3")
+    s3.put_object(
+        Bucket=S3_BUCKET,
+        Key=key,
+        Body=json.dumps(data).encode("utf-8"),
+        ContentType="application/json",
+    )
+    print(f"Uploaded {len(data)} records to s3://{S3_BUCKET}/{key}")
+
+
 def run_ingestion():
     token = get_access_token()
     today = date.today().isoformat()
@@ -60,6 +72,8 @@ def run_ingestion():
 
 def lambda_handler(event, context):
     prices, stations, today = run_ingestion()
+    upload_s3(prices, f"raw/prices/dt={today}/prices.json")
+    upload_s3(stations, f"raw/stations/dt={today}/stations.json")
     return {
         "statusCode": 200,
         "prices_count": len(prices),
@@ -72,3 +86,5 @@ if __name__ == "__main__":
     prices, stations, today = run_ingestion()
     save_local(prices, f"../data/raw/prices/dt={today}", "prices.json")
     save_local(stations, f"../data/raw/stations/dt={today}", "stations.json")
+    upload_s3(prices, f"raw/prices/dt={today}/prices.json")
+    upload_s3(stations, f"raw/stations/dt={today}/stations.json")
