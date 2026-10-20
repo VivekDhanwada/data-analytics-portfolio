@@ -101,7 +101,7 @@ Events are pushed to `window.dataLayer` by `assets/js/tracking.js` and sent to G
 
 ## QA log
 
-Tested on the live site with Tag Assistant, GA4 DebugView and the console debug flag, in Chrome and Safari on desktop. Phone not tested.
+Tested on the live site with Tag Assistant, GA4 DebugView and the console debug flag, on desktop, mainly in Chrome, with Safari checked where the table says so. Phone not tested.
 
 | Event | Test | Expected | Result |
 |---|---|---|---|
@@ -179,7 +179,7 @@ A two-page Looker Studio report (Google now calls it Data Studio), counting from
 ## Limits
 
 - Portfolio scale: traffic is low, counts are small, and my own test clicks are in the data from 19 October 2026. A zero-event day is not a reliable alert at this volume.
-- Tested in Chrome and Safari on desktop only.
+- Tested on desktop only, mainly in Chrome.
 - Middle-click and context-menu opens in a new tab are not captured. A page that fits one viewport pushes no `scroll_depth`.
 - Consent is not implemented: GA4 sets first-party `_ga` cookies, and there is no banner or Consent Mode. I have not assessed legal requirements for any audience.
 - The GTM noscript fallback is not installed, so visitors with JavaScript disabled are not tracked.
