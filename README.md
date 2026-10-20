@@ -17,9 +17,10 @@ Data analytics portfolio covering data pipeline design, layered transformation m
 | 09 | [Machine Learning Techniques](./09-machine-learning-techniques/) | Python, scikit-learn, XGBoost | Complete |
 | 10 | [Big Data & Algorithms](./10-big-data-algorithms/) | Python, mrjob, MongoDB | Complete |
 | 11 | [NSW Fuel Pricing Analysis](./11-nsw-fuel-pricing-analysis/) | Python, AWS (S3, Lambda, Docker), Snowflake, dbt, Airflow, Cube Core/MCP, Power BI | In Progress |
+| 12 | [Website Tracking and QA: Case Study](./12-tracking-implementation-qa/) | GA4, Google Tag Manager, JavaScript, Looker Studio | Complete |
 
 ## About
 
-Data Analyst with a Master of Business Analytics from Macquarie University, Microsoft Certified: Power BI Data Analyst Associate (PL-300). This repository contains detailed project files across data engineering, cloud warehousing, dimensional modelling, machine learning techniques, Big Data algorithms and dashboard development, from raw data ingestion through to business-ready reporting. Each project folder includes the full pipeline: source data, transformation logic, and final analysis or dashboard output.
+Data Analyst with a Master of Business Analytics from Macquarie University, Microsoft Certified: Power BI Data Analyst Associate (PL-300). This repository contains detailed project files across data engineering, cloud warehousing, dimensional modelling, machine learning techniques, Big Data algorithms, web analytics tracking and QA, and dashboard development, from raw data ingestion through to business-ready reporting. Each project folder includes the full pipeline: source data, transformation logic, and final analysis or dashboard output.
 
 **Contact:** vivekchinmay@gmail.com | [LinkedIn](https://www.linkedin.com/in/vivek-dhanwada/) | [Portfolio](https://vivekdhanwada.github.io)
