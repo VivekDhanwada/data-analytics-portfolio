@@ -1,4 +1,4 @@
-# Tracking Implementation and QA
+# Website Tracking and QA: Case Study
 
 A tracking implementation and QA project on my portfolio site (vivekdhanwada.github.io). It covers a baseline audit, a measurement plan, an event specification, a build in Google Tag Manager and GA4, QA with a deliberate failure, and an audit of overlapping events. This is portfolio scale, not client work.
 
