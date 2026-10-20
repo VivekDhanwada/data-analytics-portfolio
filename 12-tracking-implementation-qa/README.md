@@ -4,7 +4,7 @@ A tracking implementation and QA project on my portfolio site (vivekdhanwada.git
 
 **Business Question:** How can a team tell that tracking still works after a site release, and catch it when it silently breaks?
 
-**Key Finding:** Deliberately renaming one dataLayer key dropped a parameter from an event with no error in the console, GTM or GA4, and the GTM tag still reported Succeeded. It was caught only by checking variable values in Tag Assistant and parameters in DebugView.
+**Key Finding:** Deliberately renaming one dataLayer key dropped a parameter from an event with no error message in the console, GTM or GA4, and the GTM tag still reported Succeeded. It was caught only by checking variable values in Tag Assistant and parameters in DebugView.
 
 Live report: [Portfolio Tracking Report](https://datastudio.google.com/reporting/bccb2e6a-e81c-4219-b3cd-f641908a9696)
 
@@ -30,7 +30,7 @@ Recommendation: add five custom events from a written specification, mark `resum
 
 Version 1.0, 19 October 2026.
 
-**Objective:** help a hiring manager or recruiter who visits this portfolio find my work, open my resume and contact me, and measure whether they do.
+**Objective:** help a hiring manager or recruiter who visits this portfolio find my work, open my resume and contact me, and measure whether they do. At this traffic the values are directional, so the plan shows the measurement design, not conclusions.
 
 | KPI | Definition | Events and data | Decision it informs |
 |---|---|---|---|
@@ -39,7 +39,7 @@ Version 1.0, 19 October 2026.
 | Project engagement | Clicks to each project, and how far project pages are read | `project_click`, `scroll_depth`, `outbound_click` | Which projects to feature, and in what order |
 | Outreach attribution | Sessions and key events by source, medium and campaign, and the share of sessions in Unassigned | Session source, medium, campaign, key events | Which channel brings engaged visitors, and whether the UTM standard is followed |
 
-**Tracking health:** each custom event has a 7-day count and a last-seen date, shown next to the Unassigned share of sessions. It is an operating check, not a KPI.
+**Tracking health:** each custom event has a 7-day count and a last-seen date, shown next to the Unassigned share of sessions. It is an operating check, not a KPI. A count and last-seen date show when an event stops arriving, not when a parameter goes missing. That needs the post-release test below or a parameter-level query.
 
 ## Event specification
 
@@ -78,7 +78,7 @@ Events are pushed to `window.dataLayer` by `assets/js/tracking.js` and sent to G
 
 **Also set up.**
 - Key events: `resume_download` and `contact_click`.
-- Internal traffic: a Custom JavaScript variable (`JS - traffic_type`) sets a flag in my browser when a page loads with `?internal=1`, and the Google tag sends `traffic_type = internal`. GA4's default Internal Traffic filter matches it and is left in Testing.
+- Internal traffic: a Custom JavaScript variable (`JS - traffic_type`) sets a flag in my browser when a page loads with `?internal=1`, and the Google tag sends `traffic_type = internal`. GA4's default Internal Traffic filter matches it and is left in Testing. Clear the flag with `localStorage.removeItem("internal_traffic")`.
 - Audience: Engaged visitors, users who triggered `project_click` in the last 30 days.
 - BigQuery: a daily export of GA4 events to a dedicated Google Cloud project in sandbox mode. Tables appear from the next daily run and expire after 60 days. It has not been queried yet. A check I would schedule on it, to catch the failure described below:
 
@@ -121,7 +121,7 @@ Tested on the live site with Tag Assistant, GA4 DebugView and the console debug 
 
 On 20 October 2026 I renamed the dataLayer key `link_location` to `link_loc` for `contact_click` in `tracking.js` (v2) and pushed it.
 
-- **What happened:** the event still fired and GA4 received it, but without `link_location`. No error appeared in the console, GTM or GA4, and the GTM tag reported Succeeded.
+- **What happened:** the event still fired and GA4 received it, but without `link_location`. No error message appeared in the console, GTM or GA4, and the GTM tag reported Succeeded.
 - **How it was found:** in Tag Assistant, `DLV - link_location` read undefined while `DLV - contact_method` read linkedin. In DebugView, the parameter was missing from the event.
 
 ![Tag Assistant: link_location is undefined](screenshots/05-break-variable-undefined.png)
@@ -138,7 +138,7 @@ A Succeeded status on a tag does not prove every parameter was sent. Checking va
 
 ## Audit of overlapping events
 
-GA4 Enhanced Measurement was sending click, file_download and scroll alongside the custom `outbound_click`, `resume_download` and `scroll_depth`, so each interaction was counted twice. After the custom events passed QA, I switched off Outbound clicks, File downloads and Scrolls.
+GA4 Enhanced Measurement was sending click, file_download and scroll alongside the custom `outbound_click`, `resume_download` and `scroll_depth`, so the same interactions were measured twice under different event names. After the custom events passed QA, I switched off Outbound clicks, File downloads and Scrolls.
 
 | Event | Before | After |
 |---|---|---|
@@ -152,7 +152,7 @@ Compared by presence in DebugView for the same interactions, so the counts thems
 1. **Test after every release.** Post-release test:
    1. Open the live site with GTM Preview connected and the debug flag on.
    2. Click one of each: Resume, a project card, each contact channel, an outbound link. Scroll a project page to the bottom.
-   3. In Tag Assistant, confirm each event appears, its tag fired, and no variable reads undefined.
+   3. In Tag Assistant, confirm each event appears, its tag fired, and no variable reads undefined. Also compare the dataLayer push for that event in the Data Layer tab, because a variable can keep a value from an earlier push.
    4. In DebugView, confirm each event arrives with every parameter in the specification.
    5. Log the date, the `tracking.js` and container versions, and pass or fail. Fix and retest any failure.
 2. **Audit overlapping events before adding new ones.** Check what Enhanced Measurement already collects, and switch off the overlap once the replacement is tested.
@@ -164,7 +164,7 @@ Compared by presence in DebugView for the same interactions, so the counts thems
 | `utm_medium` | The type of channel, lowercase | social, email |
 | `utm_campaign` | Purpose and month, lowercase, hyphens | recruiter-outreach-2026-10 |
 
-Every outbound link is tagged, links on the site itself never are, and each tagged link is recorded in a list.
+Every link I share to this site is tagged, links within the site never are, and each tagged link is recorded in a list.
 
 ## Report
 
