@@ -30,16 +30,18 @@ Recommendation: add five custom events from a written specification, mark `resum
 
 Version 1.0, 19 October 2026.
 
-**Objective:** help a hiring manager or recruiter who visits this portfolio find my work, open my resume and contact me, and measure whether they do. At this traffic the values are directional, so the plan shows the measurement design, not conclusions.
+**Objective:** measure how many visitors to this portfolio view my work, open my resume and contact me, and which channels they come from. At this traffic the values are directional, so the plan shows the measurement design, not conclusions.
 
 | KPI | Definition | Events and data | Decision it informs |
 |---|---|---|---|
 | Resume interest | Resume opens per 100 engaged sessions | `resume_download`, engaged sessions | Whether the resume button is placed and labelled well |
 | Contact intent | Contact clicks by channel: email, LinkedIn, GitHub | `contact_click`, `contact_method` | Which channel to put first |
-| Project engagement | Clicks to each project, and how far project pages are read | `project_click`, `scroll_depth`, `outbound_click` | Which projects to feature, and in what order |
+| Project engagement | Clicks to each project, and how far project pages are scrolled | `project_click`, `scroll_depth`, `outbound_click` | Which projects to feature, and in what order |
 | Outreach attribution | Sessions and key events by source, medium and campaign, and the share of sessions in Unassigned | Session source, medium, campaign, key events | Which channel brings engaged visitors, and whether the UTM standard is followed |
 
 **Tracking health:** each custom event has a 7-day count and a last-seen date, shown next to the Unassigned share of sessions. It is an operating check, not a KPI. A count and last-seen date show when an event stops arriving, not when a parameter goes missing. That needs the post-release test below or a parameter-level query.
+
+**UTM standard for outreach links.** Links I share to this site carry `utm_source` (where it is posted, lowercase), `utm_medium` (the channel type, lowercase) and `utm_campaign` (purpose and month, hyphenated, for example recruiter-outreach-2026-10). Links within the site are never tagged, and each tagged link is recorded in a list.
 
 ## Event specification
 
@@ -69,6 +71,10 @@ Events are pushed to `window.dataLayer` by `assets/js/tracking.js` and sent to G
 **GTM swap.** The theme sent GA4 data through a direct gtag script. I replaced it with Google Tag Manager so tags can be changed and tested without editing the site. The direct tag is switched off in `_config.yml`, the GTM snippet loads in production builds only, and the same measurement ID keeps the property's history.
 
 **tracking.js.** One plain JavaScript file with a delegated click listener in the capture phase and a throttled scroll listener. It reads each link's hostname and path, applies the order of precedence, and pushes one event to the dataLayer. A debug flag (`localStorage.tracking_debug = '1'`) prints every push to the console, so the script was tested before any GTM tag existed.
+
+**AI assistance.** I built `tracking.js` with GenAI (Claude) from my event specification. I ran the QA and the deliberate break and fix, and I can explain how each part of the script works.
+
+**Agentic Coding.** I built `tracking.js` with GenAI (Claude) from my event specification. I ran the QA and the deliberate break and fix, and I can explain how each part of the script works.
 
 **GTM and GA4.** Eight Data Layer Variables with no default value, so a missing key shows as undefined instead of being hidden. Five Custom Event triggers and five GA4 event tags, named `DLV - name`, `CE - name` and `GA4 - event - name`. Seven event-scoped custom dimensions are registered in GA4, all except `link_url`.
 
@@ -101,14 +107,14 @@ Events are pushed to `window.dataLayer` by `assets/js/tracking.js` and sent to G
 
 ## QA log
 
-Tested on the live site with Tag Assistant, GA4 DebugView and the console debug flag, on desktop, mainly in Chrome, with Safari checked where the table says so. Phone not tested.
+Tested on the live site with Tag Assistant, GA4 DebugView and the console debug flag, on desktop, mainly in Safari, with some events also checked in Chrome. Phone not tested.
 
 | Event | Test | Expected | Result |
 |---|---|---|---|
 | `page_view` | Home page load after the GTM swap | One event per load | Pass |
-| `resume_download` | Resume button on the landing page | `file_name` resume.pdf, `link_location` landing_button | Pass in Chrome and Safari |
-| `project_click` | Landing card and projects page card | `project_name`, `project_slug`, `link_location` landing_card or projects_index | Pass in Chrome and Safari |
-| `contact_click` | LinkedIn button, email, GitHub and LinkedIn in footer and navbar | `contact_method`, `link_location` landing_button, footer or navbar | Pass in Chrome. Footer GitHub also Pass in Safari |
+| `resume_download` | Resume button on the landing page | `file_name` resume.pdf, `link_location` landing_button | Pass |
+| `project_click` | Landing card and projects page card | `project_name`, `project_slug`, `link_location` landing_card or projects_index | Pass |
+| `contact_click` | LinkedIn button, email, GitHub and LinkedIn in footer and navbar | `contact_method`, `link_location` landing_button, footer or navbar | Pass |
 | `outbound_click` | Source code link on a project page | `link_domain` github.com, `link_location` page_body, no second `contact_click` | Pass |
 | `scroll_depth` | Scroll to the bottom of three pages | 25, 50, 75 and 100 once each per page | Pass |
 | Same-tab links | Footer icons, which leave in the same tab | Push logged before the page unloads | Pass. GA4 receipt confirmed in DebugView |
@@ -156,15 +162,7 @@ Compared by presence in DebugView for the same interactions, so the counts thems
    4. In DebugView, confirm each event arrives with every parameter in the specification.
    5. Log the date, the `tracking.js` and container versions, and pass or fail. Fix and retest any failure.
 2. **Audit overlapping events before adding new ones.** Check what Enhanced Measurement already collects, and switch off the overlap once the replacement is tested.
-3. **Agree a UTM and naming standard before campaigns launch.**
-
-| Parameter | Rule | Example |
-|---|---|---|
-| `utm_source` | Where the link is posted, lowercase | linkedin, email |
-| `utm_medium` | The type of channel, lowercase | social, email |
-| `utm_campaign` | Purpose and month, lowercase, hyphens | recruiter-outreach-2026-10 |
-
-Every link I share to this site is tagged, links within the site never are, and each tagged link is recorded in a list.
+3. **Document every event and KPI before building reports on them.** A name like `resume_download` implies a saved file, but it counts opens. A written specification of each event's trigger, parameters and role, plus a definition for each KPI, keeps reports from being misread.
 
 ## Report
 
@@ -179,7 +177,7 @@ A two-page Looker Studio report (Google now calls it Data Studio), counting from
 ## Limits
 
 - Portfolio scale: traffic is low, counts are small, and my own test clicks are in the data from 19 October 2026. A zero-event day is not a reliable alert at this volume.
-- Tested on desktop only, mainly in Chrome.
+- Tested on desktop only, mainly in Safari.
 - Middle-click and context-menu opens in a new tab are not captured. A page that fits one viewport pushes no `scroll_depth`.
 - Consent is not implemented: GA4 sets first-party `_ga` cookies, and there is no banner or Consent Mode. I have not assessed legal requirements for any audience.
 - The GTM noscript fallback is not installed, so visitors with JavaScript disabled are not tracked.
