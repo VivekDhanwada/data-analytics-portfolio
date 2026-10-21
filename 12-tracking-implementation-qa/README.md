@@ -84,7 +84,7 @@ Events are pushed to `window.dataLayer` by `assets/js/tracking.js` and sent to G
 - Key events: `resume_download` and `contact_click`.
 - Internal traffic: a Custom JavaScript variable (`JS - traffic_type`) sets a flag in my browser when a page loads with `?internal=1`, and the Google tag sends `traffic_type = internal`. GA4's default Internal Traffic filter matches it and is left in Testing. Clear the flag with `localStorage.removeItem("internal_traffic")`.
 - Audience: Engaged visitors, users who triggered `project_click` in the last 30 days.
-- BigQuery: a daily export of GA4 events to a dedicated Google Cloud project in sandbox mode. Tables appear from the next daily run and expire after 60 days. It has not been queried yet. A check I would schedule on it, to catch the failure described below:
+- BigQuery: a daily export of GA4 events to a dedicated Google Cloud project in sandbox mode, with tables that expire after 60 days. I ran the check below on the first table (20 Oct 2026). It counts `contact_click` events with no `link_location`, and returned 13 `contact_click` events, 1 of them missing the parameter, which matches the one click made while the key was renamed. Run daily, the same query catches this failure at parameter level:
 
       SELECT event_date,
         COUNTIF((SELECT value.string_value FROM UNNEST(event_params)
