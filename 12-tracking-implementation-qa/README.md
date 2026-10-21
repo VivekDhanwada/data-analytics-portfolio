@@ -1,10 +1,10 @@
 # Website Tracking and QA: Case Study
 
-A tracking implementation and QA project on my portfolio site (vivekdhanwada.github.io). It covers a baseline audit, a measurement plan, an event specification, an implementation in Google Tag Manager and GA4, QA with a deliberate failure, automated tests, and an audit of overlapping events. This is portfolio scale, not client work.
+A tracking implementation and QA project on my portfolio site (vivekdhanwada.github.io). It covers a measurement plan, an event specification, GTM and GA4 implementation, manual and automated QA, built around a deliberate failure. This is portfolio scale, not client work.
 
 **Business Question:** How can a team trust its tracking data after a site release, and catch it when it silently breaks?
 
-**Key Finding:** Deliberately renaming one dataLayer key dropped a parameter from an event with no error message in the console, GTM or GA4, and the GTM tag still reported Succeeded. It was found by checking variable values in Tag Assistant and parameters in DebugView. The automated tests would now catch a repeat of the same break.
+**Key Finding:** Deliberately renaming one dataLayer key dropped a parameter from an event with no error message in the console, GTM or GA4, and the GTM tag still reported Succeeded. It was found by checking variable values in Tag Assistant and parameters in DebugView. Automated tests catch the same break in under a minute.
 
 Live report: [Portfolio Tracking Report](https://datastudio.google.com/reporting/bccb2e6a-e81c-4219-b3cd-f641908a9696)
 
