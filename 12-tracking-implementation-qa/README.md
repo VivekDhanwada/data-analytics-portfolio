@@ -37,9 +37,9 @@ Version 1.0, 19 October 2026.
 | Resume interest | Resume opens per 100 engaged sessions | `resume_download`, engaged sessions | Whether the resume button is placed and labelled well |
 | Contact intent | Contact clicks by channel: email, LinkedIn, GitHub | `contact_click`, `contact_method` | Which channel to put first |
 | Project engagement | Clicks to each project, and how far project pages are scrolled | `project_click`, `scroll_depth`, `outbound_click` | Which projects to feature, and in what order |
-| Outreach attribution | Sessions and key events by source, medium and campaign, and the share of sessions in Unassigned | Session source, medium, campaign, key events | Which channel brings engaged visitors, and whether the UTM standard is followed |
+| Outreach attribution | Sessions and key events by source, medium and campaign, and the number of sessions in Unassigned | Session source, medium, campaign, channel group, key events | Which channel brings engaged visitors, and whether the UTM standard is followed |
 
-**Tracking health:** each custom event has a 7-day count and a last-seen date, shown next to the Unassigned share of sessions. It is an operating check, not a KPI. A count and last-seen date show when an event stops arriving, not when a parameter goes missing. That needs the post-release test below or a parameter-level query.
+**Tracking health:** each custom event has a 7-day count and a last-seen date, shown on page 2 of the report. It is an operating check, not a KPI. A count and last-seen date show when an event stops arriving, not when a parameter goes missing. That needs the post-release test below or a parameter-level query.
 
 **UTM standard for outreach links.** Links I share to this site carry `utm_source` (where it is posted, lowercase), `utm_medium` (the channel type, lowercase) and `utm_campaign` (purpose and month, hyphenated, for example recruiter-outreach-2026-10). Links within the site are never tagged, and each tagged link is recorded in a list.
 
@@ -92,6 +92,8 @@ Events are pushed to `window.dataLayer` by `assets/js/tracking.js` and sent to G
       FROM `<project>.analytics_<property_id>.events_*`
       WHERE event_name = 'contact_click'
       GROUP BY event_date
+
+![BigQuery result: 13 contact_click events on 20 October, 1 missing link_location](screenshots/12-bigquery-missing-parameter.png)
 
 | Date | Change |
 |---|---|
@@ -172,8 +174,8 @@ Compared by presence in DebugView for the same interactions, so the counts thems
 ## Report
 
 A two-page Looker Studio report (Google now calls it Data Studio), counting from 19 October 2026.
-- Page 1: sessions, users and key events, traffic by source and medium, custom event counts, tracking health for the last 7 days with the last-seen date, and the share of sessions by channel, including Unassigned.
-- Page 2: top pages and campaigns.
+- Page 1, Visitor behaviour: sessions, engaged sessions, resume opens, contact clicks and project clicks, with contact clicks by channel, project clicks by project and scroll depth by page.
+- Page 2, Traffic and tracking health: sessions and key events by source, medium, campaign and channel (including Unassigned), the 7-day count and last-seen date of each custom event, top pages, and link clicks by location.
 
 ![Report page 1](screenshots/10-looker-report-page-1.png)
 
@@ -194,5 +196,5 @@ A two-page Looker Studio report (Google now calls it Data Studio), counting from
 - `README.md`: this document.
 - `tracking.js`: the dataLayer script, version 3.
 - `gtm-container-v4.json`: the GTM container export, version 4.
-- `screenshots/`: the 11 images used above.
+- `screenshots/`: the 12 images used above.
 - `automated-tests/`: Playwright tests that check each event against the specification in Chromium and WebKit (the engine Safari uses)
