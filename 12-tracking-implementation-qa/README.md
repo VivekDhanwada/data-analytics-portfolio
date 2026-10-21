@@ -174,7 +174,7 @@ Compared by presence in DebugView for the same interactions, so the counts thems
 ## Report
 
 A two-page Looker Studio report (Google now calls it Data Studio), counting from 19 October 2026.
-- Page 1, Visitor behaviour: sessions, engaged sessions, resume opens, contact clicks and project clicks, with contact clicks by channel, project clicks by project and scroll depth by page.
+- Page 1, Visitor behaviour: sessions, engaged sessions, resume opens, contact clicks and project clicks (the resume rate is read from resume opens and engaged sessions), with contact clicks by channel, project clicks by project and scroll depth by page.
 - Page 2, Traffic and tracking health: sessions and key events by source, medium, campaign and channel (including Unassigned), the 7-day count and last-seen date of each custom event, top pages, and link clicks by location.
 
 ![Report page 1](screenshots/10-looker-report-page-1.png)
@@ -183,7 +183,7 @@ A two-page Looker Studio report (Google now calls it Data Studio), counting from
 
 ## Limits
 
-- Portfolio scale: traffic is low, counts are small, and my own test clicks are in the data from 19 October 2026. A zero-event day is not a reliable alert at this volume.
+- Portfolio scale: traffic is low, counts are small, and my own test clicks are in the data from 19 October 2026. A zero-event day is not a reliable alert at this volume. Tag Assistant preview sessions also appear as a `tagassistant.google.com` referral in the attribution table.
 - Tested on desktop only, mainly in Safari.
 - Middle-click and context-menu opens in a new tab are not captured. A page that fits one viewport pushes no `scroll_depth`.
 - Consent is not implemented: GA4 sets first-party `_ga` cookies, and there is no banner or Consent Mode. I have not assessed legal requirements for any audience.
