@@ -1,6 +1,6 @@
 # Website Tracking and QA: Case Study
 
-A tracking implementation and QA project on my portfolio site (vivekdhanwada.github.io). It covers a baseline audit, a measurement plan, an event specification, a build in Google Tag Manager and GA4, QA with a deliberate failure, and an audit of overlapping events. This is portfolio scale, not client work.
+A tracking implementation and QA project on my portfolio site (vivekdhanwada.github.io). It covers a baseline audit, a measurement plan, an event specification, an implementation in Google Tag Manager and GA4, QA with a deliberate failure, and an audit of overlapping events. This is portfolio scale, not client work.
 
 **Business Question:** How can a team tell that tracking still works after a site release, and catch it when it silently breaks?
 
@@ -145,7 +145,7 @@ A Succeeded status on a tag does not prove every parameter was sent. Checking va
 
 ### Automated tests
 
-On 21 October 2026 I added Playwright tests (`automated-tests/`) that repeat the post-release test in code. Each test loads the live site, clicks a link, and checks the dataLayer push against the event specification, then checks that the outgoing GA4 request carries the same values. The request is answered locally, so no test data is recorded. All 18 tests passed (9 in each of Chromium and WebKit, the engine Safari uses). To run them, use `npx playwright test` from the `automated-tests/` folder. The first run had 4 failures that came from a wrong URL in my tests, not from the tracking: this site publishes pages without a trailing slash. Run against a copy of `tracking.js` with `link_location` renamed to `link_loc` (the deliberate break), 14 of the 18 tests fail with "link_location is missing from the push". The other 4 do not involve that parameter.
+On 21 October 2026 I added Playwright tests (`automated-tests/`) that run the post-release test automatically. Each test loads the live site, clicks a link, and checks the dataLayer push against the event specification, then checks that the outgoing GA4 request carries the same values. The request is answered locally, so no test data is recorded. All 18 tests passed (9 in each of Chromium and WebKit, the engine Safari uses). To run them, use `npx playwright test` from the `automated-tests/` folder. The first run had 4 failures that came from a wrong URL in my tests, not from the tracking: this site publishes pages without a trailing slash. Run against a copy of `tracking.js` with `link_location` renamed to `link_loc` (the deliberate break), 14 of the 18 tests fail with "link_location is missing from the push". The other 4 do not involve that parameter.
 
 ## Audit of overlapping events
 
@@ -169,7 +169,7 @@ Compared by presence in DebugView for the same interactions, so the counts thems
 
    The `automated-tests/` folder runs these checks on every event in under a minute.
 2. **Audit overlapping events before adding new ones.** Check what Enhanced Measurement already collects, and switch off the overlap once the replacement is tested.
-3. **Document every event and KPI before building reports on them.** A name like `resume_download` implies a saved file, but it counts opens. A written specification of each event's trigger, parameters and role, plus a definition for each KPI, keeps reports from being misread.
+3. **Document every event and KPI before building reports on them.** A written specification of each event's trigger, parameters and role, plus a definition for each KPI, keeps reports from being misread.
 
 ## Report
 
