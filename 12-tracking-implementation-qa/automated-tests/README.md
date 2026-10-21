@@ -27,4 +27,6 @@ Set `BASE_URL` to test a different address.
 
 The tests confirm that events fire and reach GA4 with the right values. They do not check how GA4 processes or reports them. They depend on the site's current link structure, so a redesign may need updated selectors. The tests were written with GenAI (Claude) from the event specification and run by me.
 
+Run against a copy of `tracking.js` with `link_location` renamed to `link_loc` (the deliberate break), 14 of the 18 tests fail with "link_location is missing from the push". The other 4 do not involve that parameter.
+
 `tests/event-spec.js` holds the specification as code, and `tests/tracking.spec.js` holds the tests.
