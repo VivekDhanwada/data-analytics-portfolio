@@ -72,8 +72,6 @@ Events are pushed to `window.dataLayer` by `assets/js/tracking.js` and sent to G
 
 **tracking.js.** One plain JavaScript file with a delegated click listener in the capture phase and a throttled scroll listener. It reads each link's hostname and path, applies the order of precedence, and pushes one event to the dataLayer. A debug flag (`localStorage.tracking_debug = '1'`) prints every push to the console, so the script was tested before any GTM tag existed.
 
-**AI assistance.** I built `tracking.js` with GenAI (Claude) from my event specification. I ran the QA and the deliberate break and fix, and I can explain how each part of the script works.
-
 **Agentic Coding.** I built `tracking.js` with GenAI (Claude) from my event specification. I ran the QA and the deliberate break and fix, and I can explain how each part of the script works.
 
 **GTM and GA4.** Eight Data Layer Variables with no default value, so a missing key shows as undefined instead of being hidden. Five Custom Event triggers and five GA4 event tags, named `DLV - name`, `CE - name` and `GA4 - event - name`. Seven event-scoped custom dimensions are registered in GA4, all except `link_url`.
@@ -104,6 +102,7 @@ Events are pushed to `window.dataLayer` by `assets/js/tracking.js` and sent to G
 | 20 Oct 2026 | Three overlapping automatic events switched off |
 | 20 Oct 2026 | Internal traffic flag. Container version 4 |
 | 20 Oct 2026 | Key events marked, Engaged visitors audience created, BigQuery export switched on |
+| 21 Oct 2026 | Playwright tests added: 18 tests across Chromium and WebKit |
 
 ## QA log
 
@@ -141,6 +140,10 @@ On 20 October 2026 I renamed the dataLayer key `link_location` to `link_loc` for
 ![DebugView: link_location back in the parameters](screenshots/08-fix-debugview-recovered.png)
 
 A Succeeded status on a tag does not prove every parameter was sent. Checking variable values and DebugView parameters is the test that catches this.
+
+### Automated tests
+
+On 21 October 2026 I added Playwright tests (`automated-tests/`) that repeat the post-release test in code. Each test loads the live site, clicks a link, and checks the dataLayer push against the event specification, then checks that the outgoing GA4 request carries the same values. The request is answered locally, so no test data is recorded. All 18 tests passed (9 in each of Chromium and WebKit, the engine Safari uses). The first run had 4 failures that came from a wrong URL in my tests, not from the tracking: this site publishes pages without a trailing slash.
 
 ## Audit of overlapping events
 
@@ -184,6 +187,7 @@ A two-page Looker Studio report (Google now calls it Data Studio), counting from
 - Consent is not implemented: GA4 sets first-party `_ga` cookies, and there is no banner or Consent Mode. I have not assessed legal requirements for any audience.
 - The GTM noscript fallback is not installed, so visitors with JavaScript disabled are not tracked.
 - The BigQuery export runs in sandbox mode, so tables expire after 60 days.
+- The automated tests check that events fire and reach GA4 with the right values, not how GA4 reports them. They depend on the site's current link structure and need updating if it changes.
 
 ## Files
 
@@ -191,4 +195,4 @@ A two-page Looker Studio report (Google now calls it Data Studio), counting from
 - `tracking.js`: the dataLayer script, version 3.
 - `gtm-container-v4.json`: the GTM container export, version 4.
 - `screenshots/`: the 11 images used above.
-- `automated-tests/` Playwright tests that check each event against the specification in Chromium and WebKit (the engine Safari uses)
+- `automated-tests/`: Playwright tests that check each event against the specification in Chromium and WebKit (the engine Safari uses)
