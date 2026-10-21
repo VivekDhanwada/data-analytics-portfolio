@@ -25,7 +25,7 @@ Set `BASE_URL` to test a different address.
 
 ## Limits
 
-The tests confirm that events fire and reach GA4 with the right values. They do not check how GA4 processes or reports them. They depend on the site's current link structure, so a redesign may need updated selectors. The tests were written with GenAI (Claude) from the event specification and run by me.
+The tests confirm that each event is pushed and that the outgoing GA4 request carries the right values. The request is answered locally, so they do not check what GA4 receives or how it reports. They depend on the site's current link structure, so a redesign may need updated selectors. The tests were written with GenAI (Claude) from the event specification and run by me.
 
 Run against a copy of `tracking.js` with `link_location` renamed to `link_loc` in the `contact_click` push only (the original break), the 3 `contact_click` tests fail in each browser with "link_location is missing from the push", and the other 12 pass.
 

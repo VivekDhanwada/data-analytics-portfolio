@@ -189,7 +189,7 @@ A two-page Looker Studio report (Google now calls it Data Studio), counting from
 - Consent is not implemented: GA4 sets first-party `_ga` cookies, and there is no banner or Consent Mode. I have not assessed legal requirements for any audience.
 - The GTM noscript fallback is not installed, so visitors with JavaScript disabled are not tracked.
 - The BigQuery export runs in sandbox mode, so tables expire after 60 days.
-- The automated tests check that events fire and reach GA4 with the right values, not how GA4 reports them. They depend on the site's current link structure and need updating if it changes.
+- The automated tests check that each event is pushed and that the outgoing GA4 request carries the right values. The request is answered locally, so they do not check what GA4 receives or how it reports. They depend on the site's current link structure and need updating if it changes.
 
 ## Files
 
