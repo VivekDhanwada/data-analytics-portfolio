@@ -106,7 +106,7 @@ Events are pushed to `window.dataLayer` by `assets/js/tracking.js` and sent to G
 
 ## QA log
 
-Tested on the live site with Tag Assistant, GA4 DebugView and the console debug flag, on desktop, mainly in Safari, with some events also checked in Chrome. Phone not tested.
+Tested on the live site with Tag Assistant, GA4 DebugView and the browser developer tools console, on desktop, mainly in Safari, with some events also checked in Chrome. Phone not tested.
 
 | Event | Test | Expected | Result |
 |---|---|---|---|
@@ -143,7 +143,7 @@ A Succeeded status on a tag does not prove every parameter was sent. Checking va
 
 ### Automated tests
 
-On 21 October 2026 I added Playwright tests (`automated-tests/`) that repeat the post-release test in code. Each test loads the live site, clicks a link, and checks the dataLayer push against the event specification, then checks that the outgoing GA4 request carries the same values. The request is answered locally, so no test data is recorded. All 18 tests passed (9 in each of Chromium and WebKit, the engine Safari uses). The first run had 4 failures that came from a wrong URL in my tests, not from the tracking: this site publishes pages without a trailing slash.
+On 21 October 2026 I added Playwright tests (`automated-tests/`) that repeat the post-release test in code. Each test loads the live site, clicks a link, and checks the dataLayer push against the event specification, then checks that the outgoing GA4 request carries the same values. The request is answered locally, so no test data is recorded. All 18 tests passed (9 in each of Chromium and WebKit, the engine Safari uses). To run them, use `npx playwright test` from the `automated-tests/` folder. The first run had 4 failures that came from a wrong URL in my tests, not from the tracking: this site publishes pages without a trailing slash.
 
 ## Audit of overlapping events
 
