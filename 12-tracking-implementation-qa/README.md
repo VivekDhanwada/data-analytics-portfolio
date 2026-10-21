@@ -1,10 +1,10 @@
 # Website Tracking and QA: Case Study
 
-A tracking implementation and QA project on my portfolio site (vivekdhanwada.github.io). It covers a baseline audit, a measurement plan, an event specification, an implementation in Google Tag Manager and GA4, QA with a deliberate failure, and an audit of overlapping events. This is portfolio scale, not client work.
+A tracking implementation and QA project on my portfolio site (vivekdhanwada.github.io). It covers a baseline audit, a measurement plan, an event specification, an implementation in Google Tag Manager and GA4, QA with a deliberate failure, automated tests, and an audit of overlapping events. This is portfolio scale, not client work.
 
-**Business Question:** How can a team tell that tracking still works after a site release, and catch it when it silently breaks?
+**Business Question:** How can a team trust its tracking data after a site release, and catch it when it silently breaks?
 
-**Key Finding:** Deliberately renaming one dataLayer key dropped a parameter from an event with no error message in the console, GTM or GA4, and the GTM tag still reported Succeeded. It was caught only by checking variable values in Tag Assistant and parameters in DebugView. The automated tests would now catch a repeat of the same break.
+**Key Finding:** Deliberately renaming one dataLayer key dropped a parameter from an event with no error message in the console, GTM or GA4, and the GTM tag still reported Succeeded. It was found by checking variable values in Tag Assistant and parameters in DebugView. The automated tests would now catch a repeat of the same break.
 
 Live report: [Portfolio Tracking Report](https://datastudio.google.com/reporting/bccb2e6a-e81c-4219-b3cd-f641908a9696)
 
@@ -145,7 +145,7 @@ A Succeeded status on a tag does not prove every parameter was sent. Checking va
 
 ### Automated tests
 
-On 21 October 2026 I added Playwright tests (`automated-tests/`) that run the post-release test automatically. Each test loads the live site, clicks a link or scrolls the page, and checks the dataLayer push against the event specification, then checks that the outgoing GA4 request carries the same values. The request is answered locally, so no test data is recorded. All 18 tests passed (9 in each of Chromium and WebKit, the engine Safari uses). To run them, use `npx playwright test` from the `automated-tests/` folder. The first run had 4 failures that came from a wrong URL in my tests, not from the tracking: this site publishes pages without a trailing slash. Run against a copy of `tracking.js` with `link_location` renamed to `link_loc` in every event (the rename from the deliberate break), 14 of the 18 tests fail with "link_location is missing from the push". The other 4 do not involve that parameter.
+On 21 October 2026 I added Playwright tests (`automated-tests/`) that run the post-release test automatically. Each test loads the live site, clicks a link or scrolls the page, and checks the dataLayer push against the event specification, then checks that the outgoing GA4 request carries the same values. The request is answered locally, so no test data is recorded. All 18 tests passed (9 in each of Chromium and WebKit, the engine Safari uses). To run them, use `npx playwright test` from the `automated-tests/` folder. The first run had 4 failures that came from a wrong URL in my tests, not from the tracking: this site publishes pages without a trailing slash. Run against a copy of `tracking.js` with `link_location` renamed to `link_loc` in the `contact_click` push only (the original break), the 3 `contact_click` tests fail in each browser with "link_location is missing from the push", and the other 12 pass.
 
 ## Audit of overlapping events
 
