@@ -72,7 +72,7 @@ Events are pushed to `window.dataLayer` by `assets/js/tracking.js` and sent to G
 
 **tracking.js.** One plain JavaScript file with a delegated click listener in the capture phase and a throttled scroll listener. It reads each link's hostname and path, applies the order of precedence, and pushes one event to the dataLayer. A debug flag (`localStorage.tracking_debug = '1'`) prints every push to the console, so the script was tested before any GTM tag existed.
 
-**Agentic Coding.** I built `tracking.js` with GenAI (Claude) from my event specification. I ran the QA and the deliberate break and fix, and I can explain how each part of the script works.
+**Agentic Coding.** I built `tracking.js` with GenAI (Claude) from my event specification. I ran the QA and the deliberate break and fix, and I can explain how each part of the script works. The Playwright tests in `automated-tests/` were also written with GenAI (Claude) from the same event specification; I ran them and worked through the first-run failures.
 
 **GTM and GA4.** Eight Data Layer Variables with no default value, so a missing key shows as undefined instead of being hidden. Five Custom Event triggers and five GA4 event tags, named `DLV - name`, `CE - name` and `GA4 - event - name`. Seven event-scoped custom dimensions are registered in GA4, all except `link_url`.
 
