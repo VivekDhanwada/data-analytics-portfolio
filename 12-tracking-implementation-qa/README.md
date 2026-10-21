@@ -161,6 +161,8 @@ Compared by presence in DebugView for the same interactions, so the counts thems
    3. In Tag Assistant, confirm each event appears, its tag fired, and no variable reads undefined. Also compare the dataLayer push for that event in the Data Layer tab, because a variable can keep a value from an earlier push.
    4. In DebugView, confirm each event arrives with every parameter in the specification.
    5. Log the date, the `tracking.js` and container versions, and pass or fail. Fix and retest any failure.
+
+   The `automated-tests/` folder runs these checks on every event in under a minute.
 2. **Audit overlapping events before adding new ones.** Check what Enhanced Measurement already collects, and switch off the overlap once the replacement is tested.
 3. **Document every event and KPI before building reports on them.** A name like `resume_download` implies a saved file, but it counts opens. A written specification of each event's trigger, parameters and role, plus a definition for each KPI, keeps reports from being misread.
 
@@ -189,3 +191,4 @@ A two-page Looker Studio report (Google now calls it Data Studio), counting from
 - `tracking.js`: the dataLayer script, version 3.
 - `gtm-container-v4.json`: the GTM container export, version 4.
 - `screenshots/`: the 11 images used above.
+- `automated-tests/` Playwright tests that check each event against the specification in Chromium and WebKit (the engine Safari uses)
