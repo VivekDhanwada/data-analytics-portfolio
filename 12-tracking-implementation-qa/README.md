@@ -167,7 +167,7 @@ Compared by presence in DebugView for the same interactions, so the counts thems
    4. In DebugView, confirm each event arrives with every parameter in the specification.
    5. Log the date, the `tracking.js` and container versions, and pass or fail. Fix and retest any failure.
 
-   The `automated-tests/` folder runs these checks on every event in under a minute.
+   The `automated-tests/` folder runs equivalent checks on the dataLayer push and the outgoing GA4 request for every event in under a minute. A new or changed event still needs the manual test above.
 2. **Audit overlapping events before adding new ones.** Check what Enhanced Measurement already collects, and switch off the overlap once the replacement is tested.
 3. **Document every event and KPI before building reports on them.** A written specification of each event's trigger, parameters and role, plus a definition for each KPI, keeps reports from being misread.
 
