@@ -1,6 +1,6 @@
 # NEM Emissions & Bidding Analysis
 
-Analysis of Australian National Electricity Market (NEM) emissions intensity and generator bidding behaviour using Python, covering 5-minute interval dispatch and emissions data across NEM regions.
+Analysis of Australian National Electricity Market (NEM) emissions intensity and generator bidding behaviour using Python, covering 5-minute interval emissions data and generator bid data across NEM regions.
 
 ## Overview
 
@@ -34,10 +34,10 @@ The project was completed as part of a Macquarie University capstone project and
 
 ### Data Processing
 
-- Extracted and cleaned dispatch and emissions datasets using Python and pandas
+- Extracted and cleaned emissions and generator bid datasets using Python and pandas
 - Standardised timestamps and regional identifiers
 - Aggregated 5-minute interval data to support regional and temporal comparisons
-- Filtered and analysed fossil fuel generator bidding data across selected 2019 and 2025 periods
+- Filtered and analysed fossil fuel generator bidding data for April 2019 and April 2025
 - Calculated carbon intensity metrics and bidding price distributions
 - Produced comparative visualisations for emissions trends and market behaviour
 
@@ -69,7 +69,7 @@ Time-series and intra-day analysis revealed significant variation across NEM reg
 ## Skills Demonstrated
 
 - Python data cleaning and preparation
-- Time series analysis using 5-minute interval dispatch data
+- Time series analysis using 5-minute interval emissions data
 - Data aggregation and regional comparison
 - Matplotlib visualisation and analytical reporting
 - Translating technical findings into a client-style analytical report
